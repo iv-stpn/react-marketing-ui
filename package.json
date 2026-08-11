@@ -187,6 +187,36 @@
         "default": "./dist/elevated-input.cjs"
       }
     },
+    "./input": {
+      "import": {
+        "types": "./dist/input.d.ts",
+        "default": "./dist/input.js"
+      },
+      "require": {
+        "types": "./dist/input.d.cts",
+        "default": "./dist/input.cjs"
+      }
+    },
+    "./password-input": {
+      "import": {
+        "types": "./dist/password-input.d.ts",
+        "default": "./dist/password-input.js"
+      },
+      "require": {
+        "types": "./dist/password-input.d.cts",
+        "default": "./dist/password-input.cjs"
+      }
+    },
+    "./range-slider": {
+      "import": {
+        "types": "./dist/range-slider.d.ts",
+        "default": "./dist/range-slider.js"
+      },
+      "require": {
+        "types": "./dist/range-slider.d.cts",
+        "default": "./dist/range-slider.cjs"
+      }
+    },
     "./lib/cn": {
       "import": {
         "types": "./dist/lib/utils.d.ts",
