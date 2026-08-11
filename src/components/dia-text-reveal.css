@@ -1,0 +1,33 @@
+/* Keyframes for DiaTextReveal's gradient sweep.
+
+   The band is a static gradient several times wider than the line (see
+   dia-text-reveal.sweep.ts); sweeping it is just sliding that image, so the only thing
+   animating here is background-position-x. Keeping it in CSS is the point: the sweep then
+   runs on the browser's animation clock instead of a requestAnimationFrame loop, so a busy
+   main thread — scrolling, WebGL render loops, React commits — can no longer stall it.
+
+   Two identical rules under different names. Re-assigning animation-name is what restarts a
+   CSS animation, and the rotating variant needs a restart per line; the alternative,
+   remounting the span, would leave wrap mode's ResizeObserver bound to a detached node.
+
+   The endpoints are supplied as custom properties by the component, which derives them from
+   the band geometry. The literal fallbacks match SWEEP_FROM / SWEEP_TO for the same defaults
+   and only apply if those properties never land. */
+
+@keyframes dia-sweep-a {
+  from {
+    background-position-x: var(--dia-sweep-from, 83.5%);
+  }
+  to {
+    background-position-x: var(--dia-sweep-to, 16.5%);
+  }
+}
+
+@keyframes dia-sweep-b {
+  from {
+    background-position-x: var(--dia-sweep-from, 83.5%);
+  }
+  to {
+    background-position-x: var(--dia-sweep-to, 16.5%);
+  }
+}

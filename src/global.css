@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* ── Theme tokens (light default) ─────────────────────────────── */
+@theme {
+  --color-foreground: #121213;
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-border: #e4e4e7;
+  --color-border-hi: #d4d4d8;
+  --color-accent-brand: #6366f1;
+  --color-accent-brand-soft: #a5b4fc;
+  --color-destructive: #ef4444;
+
+  /* Rainbow gradient tokens — used by RainbowButton */
+  --color-rainbow-1: oklch(70% 0.25 30);
+  --color-rainbow-2: oklch(70% 0.25 120);
+  --color-rainbow-3: oklch(70% 0.25 210);
+  --color-rainbow-4: oklch(70% 0.25 300);
+  --color-rainbow-5: oklch(70% 0.25 30);
+}
+
+/* Dark theme overrides */
+.dark {
+  --color-foreground: #fafafa;
+  --color-background: #0a0a0a;
+  --color-surface: #121213;
+  --color-muted: #27272a;
+  --color-muted-foreground: #a1a1aa;
+  --color-border: #27272a;
+  --color-border-hi: #3f3f46;
+}

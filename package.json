@@ -1,0 +1,204 @@
+{
+  "name": "react-landing-ui",
+  "version": "0.0.0",
+  "description": "Reusable landing-page UI components for React — animated text reveals, shader effects, magnetic tabs, and scroll-triggered entrances.",
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "landing",
+    "animation",
+    "framer-motion",
+    "tailwind",
+    "storybook"
+  ],
+  "license": "MIT",
+  "author": "Ivan Stepanian <iv.stpn@gmail.com>",
+  "homepage": "https://github.com/iv-stpn/react-landing-ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iv-stpn/react-landing-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iv-stpn/react-landing-ui/issues"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./sparkles-text": {
+      "import": {
+        "types": "./dist/sparkles-text.d.ts",
+        "default": "./dist/sparkles-text.js"
+      },
+      "require": {
+        "types": "./dist/sparkles-text.d.cts",
+        "default": "./dist/sparkles-text.cjs"
+      }
+    },
+    "./rainbow-button": {
+      "import": {
+        "types": "./dist/rainbow-button.d.ts",
+        "default": "./dist/rainbow-button.js"
+      },
+      "require": {
+        "types": "./dist/rainbow-button.d.cts",
+        "default": "./dist/rainbow-button.cjs"
+      }
+    },
+    "./shine-border": {
+      "import": {
+        "types": "./dist/shine-border.d.ts",
+        "default": "./dist/shine-border.js"
+      },
+      "require": {
+        "types": "./dist/shine-border.d.cts",
+        "default": "./dist/shine-border.cjs"
+      }
+    },
+    "./liquid-metal": {
+      "import": {
+        "types": "./dist/liquid-metal.d.ts",
+        "default": "./dist/liquid-metal.js"
+      },
+      "require": {
+        "types": "./dist/liquid-metal.d.cts",
+        "default": "./dist/liquid-metal.cjs"
+      }
+    },
+    "./tabs": {
+      "import": {
+        "types": "./dist/tabs.d.ts",
+        "default": "./dist/tabs.js"
+      },
+      "require": {
+        "types": "./dist/tabs.d.cts",
+        "default": "./dist/tabs.cjs"
+      }
+    },
+    "./highlighter": {
+      "import": {
+        "types": "./dist/highlighter.d.ts",
+        "default": "./dist/highlighter.js"
+      },
+      "require": {
+        "types": "./dist/highlighter.d.cts",
+        "default": "./dist/highlighter.cjs"
+      }
+    },
+    "./fade-in": {
+      "import": {
+        "types": "./dist/fade-in.d.ts",
+        "default": "./dist/fade-in.js"
+      },
+      "require": {
+        "types": "./dist/fade-in.d.cts",
+        "default": "./dist/fade-in.cjs"
+      }
+    },
+    "./dia-text-reveal": {
+      "import": {
+        "types": "./dist/dia-text-reveal.d.ts",
+        "default": "./dist/dia-text-reveal.js"
+      },
+      "require": {
+        "types": "./dist/dia-text-reveal.d.cts",
+        "default": "./dist/dia-text-reveal.cjs"
+      }
+    },
+    "./lib/cn": {
+      "import": {
+        "types": "./dist/lib/utils.d.ts",
+        "default": "./dist/lib/cn.js"
+      },
+      "require": {
+        "types": "./dist/lib/utils.d.cts",
+        "default": "./dist/lib/cn.cjs"
+      }
+    },
+    "./lib/use-media-query": {
+      "import": {
+        "types": "./dist/lib/use-media-query.d.ts",
+        "default": "./dist/lib/use-media-query.js"
+      },
+      "require": {
+        "types": "./dist/lib/use-media-query.d.cts",
+        "default": "./dist/lib/use-media-query.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "tsup && bun run build:types",
+    "build:types": "tsc -p tsconfig.build.json && bun scripts/gen-cjs-types.ts",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "bun run build && changeset publish",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.42.2",
+    "tailwind-merge": "^3.6.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5",
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.31",
+    "@iv-stpn/biome-config": "^1.3",
+    "@paper-design/shaders-react": "^0.0.77",
+    "@storybook/addon-docs": "^10.5",
+    "@storybook/addon-themes": "^10.5",
+    "@storybook/addon-vitest": "^10.5",
+    "@storybook/react": "^10.5",
+    "@storybook/react-vite": "^10.5",
+    "@tailwindcss/vite": "^4.3",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/browser-playwright": "^4.1",
+    "husky": "^9",
+    "playwright": "^1.61",
+    "react": "^19.2",
+    "react-dom": "^19.2",
+    "rough-notation": "^0.5.1",
+    "storybook": "^10.5",
+    "tailwindcss": "^4",
+    "tsup": "^8",
+    "typescript": "^7",
+    "vite": "^8",
+    "vitest": "^4"
+  }
+}
