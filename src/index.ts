@@ -1,26 +1,30 @@
-export { SparklesText } from "./components/sparkles-text.js";
-export type { SparklesTextProps } from "./components/sparkles-text.js";
-
-export { RainbowButton, rainbowButtonVariants } from "./components/rainbow-button.js";
-export type { RainbowButtonProps } from "./components/rainbow-button.js";
-
-export { ShineBorder } from "./components/shine-border.js";
-export type { ShineBorderProps } from "./components/shine-border.js";
-
-export { LiquidMetal } from "./components/liquid-metal.js";
-export type { LiquidMetalProps } from "./components/liquid-metal.js";
-
-export { Tabs } from "./components/tabs.js";
-export type { Tab, TabsProps } from "./components/tabs.js";
-
-export { Highlighter } from "./components/highlighter.js";
-export type { AnnotationAction, HighlighterProps } from "./components/highlighter.js";
-
-export { DiaTextReveal } from "./components/dia-text-reveal.js";
-export type { DiaTextRevealProps } from "./components/dia-text-reveal.js";
-
-export { FadeIn, Stagger, StaggerItem } from "./components/fade-in.js";
-export type { FadeInProps, StaggerItemProps, StaggerProps } from "./components/fade-in.js";
-
-export { cn, validCssVars, hasKey, noop } from "./lib/utils.js";
-export type { CSSPropertiesWithVars } from "./lib/utils.js";
+export { Accordion, AccordionContent, AccordionHeader, AccordionItem, AccordionTrigger } from './components/accordion.js';
+export type { AnimatedBeamProps } from './components/animated-beam.js';
+export { AnimatedBeam } from './components/animated-beam.js';
+export type { CardProps } from './components/card.js';
+export { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/card.js';
+export type { DiaTextRevealProps } from './components/dia-text-reveal.js';
+export { DiaTextReveal } from './components/dia-text-reveal.js';
+export { ElevatedInput } from './components/elevated-input.js';
+export type { FadeInProps, StaggerItemProps, StaggerProps } from './components/fade-in.js';
+export { FadeIn, Stagger, StaggerItem } from './components/fade-in.js';
+export type { FeatureCardProps } from './components/feature-card.js';
+export { FeatureCard } from './components/feature-card.js';
+export type { GlossyButtonProps } from './components/glossy-button.js';
+export { GlossyButton, glossyButtonVariants } from './components/glossy-button.js';
+export type { AnnotationAction, HighlighterProps } from './components/highlighter.js';
+export { Highlighter } from './components/highlighter.js';
+export type { LiquidMetalProps } from './components/liquid-metal.js';
+export { LiquidMetal } from './components/liquid-metal.js';
+export type { RainbowButtonProps } from './components/rainbow-button.js';
+export { RainbowButton, rainbowButtonVariants } from './components/rainbow-button.js';
+export type { BadgeEntry, RollingBadgeProps } from './components/rolling-badge.js';
+export { RollingBadge } from './components/rolling-badge.js';
+export type { ShineBorderProps } from './components/shine-border.js';
+export { ShineBorder } from './components/shine-border.js';
+export type { SparklesTextProps } from './components/sparkles-text.js';
+export { SparklesText } from './components/sparkles-text.js';
+export type { Tab, TabsProps } from './components/tabs.js';
+export { Tabs } from './components/tabs.js';
+export type { CSSPropertiesWithVars } from './lib/utils.js';
+export { cn, hasKey, noop, validCssVars } from './lib/utils.js';

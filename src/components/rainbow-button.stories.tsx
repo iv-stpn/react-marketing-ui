@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { RainbowButton } from "./rainbow-button.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { RainbowButton } from './rainbow-button.js';
 
 const meta = {
-  title: "Buttons/RainbowButton",
+  title: 'Buttons/RainbowButton',
   component: RainbowButton,
-  args: { children: "Rainbow" },
+  args: { children: 'Rainbow' },
 } satisfies Meta<typeof RainbowButton>;
 
 export default meta;

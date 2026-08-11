@@ -1,0 +1,44 @@
+/* ── GlossyButton tokens ─────────────────────────────────────
+ * CSS custom properties that drive the physically-lit glossy
+ * button variants. Set once per variant class on the root element.
+ * Consumers can override these to theme the buttons. */
+
+/* Neutral (default) */
+.glossy {
+  --btn-face: var(--color-surface);
+  --btn-fg: var(--color-foreground);
+  --btn-tint-hover: oklch(0 0 0 / 0.04);
+  --btn-tint-active: oklch(0 0 0 / 0.08);
+  --shadow-button:
+    0 1px 2px 0 oklch(0 0 0 / 0.06), 0 2px 6px 0 oklch(0 0 0 / 0.04), 0 0 0 1px oklch(0 0 0 / 0.06),
+    inset 0 1px 0 0 oklch(1 0 0 / 0.6);
+  --shadow-button-pressed: 0 1px 2px 0 oklch(0 0 0 / 0.04), 0 0 0 1px oklch(0 0 0 / 0.06), inset 0 1px 0 0 oklch(1 0 0 / 0.2);
+  --gradient-button: linear-gradient(180deg, oklch(1 0 0 / 0.6), oklch(1 0 0 / 0) 70%);
+}
+
+/* Accent — indigo-tinted */
+.glossy-accent {
+  --btn-face: var(--color-accent-brand);
+  --btn-fg: #ffffff;
+  --btn-tint-hover: oklch(1 0 0 / 0.12);
+  --btn-tint-active: oklch(0 0 0 / 0.12);
+  --shadow-button:
+    0 1px 2px 0 oklch(0 0 0 / 0.12), 0 2px 6px 0 oklch(0 0 0 / 0.06), 0 0 0 1px oklch(0 0 0 / 0.12),
+    inset 0 1px 0 0 oklch(1 0 0 / 0.3);
+  --shadow-button-pressed: 0 1px 2px 0 oklch(0 0 0 / 0.06), 0 0 0 1px oklch(0 0 0 / 0.12), inset 0 1px 0 0 oklch(1 0 0 / 0.08);
+  --gradient-button: linear-gradient(180deg, oklch(1 0 0 / 0.3), oklch(1 0 0 / 0) 70%);
+}
+
+.dark .glossy {
+  --btn-tint-hover: oklch(1 0 0 / 0.08);
+  --btn-tint-active: oklch(1 0 0 / 0.12);
+  --shadow-button:
+    0 1px 2px 0 oklch(0 0 0 / 0.2), 0 2px 6px 0 oklch(0 0 0 / 0.1), 0 0 0 1px oklch(1 0 0 / 0.08),
+    inset 0 1px 0 0 oklch(1 0 0 / 0.08);
+  --shadow-button-pressed: 0 1px 2px 0 oklch(0 0 0 / 0.12), 0 0 0 1px oklch(1 0 0 / 0.08), inset 0 1px 0 0 oklch(1 0 0 / 0.02);
+}
+
+.dark .glossy-accent {
+  --btn-tint-hover: oklch(1 0 0 / 0.16);
+  --btn-tint-active: oklch(0 0 0 / 0.16);
+}

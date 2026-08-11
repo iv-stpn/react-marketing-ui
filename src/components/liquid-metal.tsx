@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { LiquidMetal as LiquidMetalShader } from "@paper-design/shaders-react";
-import type { CSSProperties, ReactNode } from "react";
-import { cn } from "../lib/utils.js";
+import { LiquidMetal as LiquidMetalShader } from '@paper-design/shaders-react';
+import type { CSSProperties, ReactNode } from 'react';
+import { cn } from '../lib/utils.js';
 
 /* ── Shader wrapper ────────────────────────────────────── */
 
@@ -29,8 +29,8 @@ export type LiquidMetalProps = {
  * from assistive tech and never intercepts pointer events.
  */
 export function LiquidMetal({
-  colorBack = "#aaaaac",
-  colorTint = "#ffffff",
+  colorBack = '#aaaaac',
+  colorTint = '#ffffff',
   speed = 0.5,
   repetition = 4,
   distortion = 0.1,
@@ -39,14 +39,7 @@ export function LiquidMetal({
   style,
 }: LiquidMetalProps) {
   return (
-    <div
-      aria-hidden={true}
-      className={cn(
-        "pointer-events-none absolute inset-0 z-0 overflow-hidden",
-        className,
-      )}
-      style={style}
-    >
+    <div aria-hidden={true} className={cn('pointer-events-none absolute inset-0 z-0 overflow-hidden', className)} style={style}>
       <LiquidMetalShader
         colorBack={colorBack}
         colorTint={colorTint}
@@ -60,7 +53,7 @@ export function LiquidMetal({
         shape="none"
         scale={scale}
         fit="cover"
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: '100%', height: '100%' }}
       />
     </div>
   );

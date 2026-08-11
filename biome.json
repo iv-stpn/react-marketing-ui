@@ -5,6 +5,9 @@
     "rules": {
       "suspicious": {
         "noUnnecessaryConditions": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off"
       }
     }
   },
@@ -30,7 +33,9 @@
       "linter": {
         "rules": {
           "style": {
-            "useComponentExportOnlyModules": "off"
+            "useComponentExportOnlyModules": "off",
+            "useExportsLast": "off",
+            "noJsxLiterals": "off"
           }
         }
       }

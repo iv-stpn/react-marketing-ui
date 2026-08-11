@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { SparklesText } from "./sparkles-text.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { SparklesText } from './sparkles-text.js';
 
 const meta = {
-  title: "Text/SparklesText",
+  title: 'Text/SparklesText',
   component: SparklesText,
-  args: { children: "Sparkle" },
+  args: { children: 'Sparkle' },
 } satisfies Meta<typeof SparklesText>;
 
 export default meta;

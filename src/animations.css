@@ -1,0 +1,36 @@
+/* Keyframes shared by react-landing-ui components */
+
+/* RainbowButton gradient sweep */
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ShineBorder animation */
+@keyframes shine {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Apply the keyframes globally so consumers get them automatically */
+.animate-rainbow {
+  animation: rainbow 3s ease infinite;
+}
+
+.animate-shine {
+  animation: shine var(--duration, 14s) ease infinite;
+}

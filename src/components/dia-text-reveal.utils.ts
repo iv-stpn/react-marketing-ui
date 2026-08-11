@@ -7,11 +7,11 @@ export function measureWidths(el: HTMLElement, texts: string[]) {
   if (!(ghost instanceof HTMLElement)) return texts.map(() => 0);
 
   Object.assign(ghost.style, {
-    position: "absolute",
-    visibility: "hidden",
-    pointerEvents: "none",
-    width: "auto",
-    whiteSpace: "nowrap",
+    position: 'absolute',
+    visibility: 'hidden',
+    pointerEvents: 'none',
+    width: 'auto',
+    whiteSpace: 'nowrap',
   });
   parent.appendChild(ghost);
   const widths = texts.map((t) => {

@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { DiaTextReveal } from "./dia-text-reveal.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { DiaTextReveal } from './dia-text-reveal.js';
 
 const meta = {
-  title: "Text/DiaTextReveal",
+  title: 'Text/DiaTextReveal',
   component: DiaTextReveal,
-  args: { text: "Dia Text Reveal", startOnView: false },
+  args: { text: 'Dia Text Reveal', startOnView: false },
 } satisfies Meta<typeof DiaTextReveal>;
 
 export default meta;
@@ -14,7 +14,7 @@ export const Default: Story = {};
 
 export const Rotating: Story = {
   args: {
-    text: ["Design", "Build", "Ship"],
+    text: ['Design', 'Build', 'Ship'],
     repeat: true,
     startOnView: false,
   },

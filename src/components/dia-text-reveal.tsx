@@ -1,52 +1,22 @@
-"use client";
+'use client';
 
-import {
-  motion,
-  useInView,
-  useReducedMotion,
-} from "framer-motion";
-import type {
-  AnimationEvent,
-  ComponentPropsWithoutRef,
-} from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import type { AnimationEvent, ComponentPropsWithoutRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { cn } from "../lib/utils.js";
+import { cn } from '../lib/utils.js';
 
-import {
-  ExitingLine,
-  HeightClipper,
-  WidthReservation,
-} from "./dia-text-reveal.lines.js";
-import {
-  buildSweepStyle,
-  COVERAGE_SPAN,
-  makeExitEase,
-  type Sweep,
-} from "./dia-text-reveal.sweep.js";
-import { measureWidths } from "./dia-text-reveal.utils.js";
-import "./dia-text-reveal.css";
+import { ExitingLine, HeightClipper, WidthReservation } from './dia-text-reveal.lines.js';
+import { buildSweepStyle, COVERAGE_SPAN, makeExitEase, type Sweep } from './dia-text-reveal.sweep.js';
+import { measureWidths } from './dia-text-reveal.utils.js';
+import './dia-text-reveal.css';
 
-const DEFAULT_COLORS = [
-  "#c679c4",
-  "#fa3d1d",
-  "#ffb005",
-  "#e1e1fe",
-  "#0358f7",
-];
+const DEFAULT_COLORS = ['#c679c4', '#fa3d1d', '#ffb005', '#e1e1fe', '#0358f7'];
 
 const EXIT_LEAD_RATIO = 0.3;
 
 export interface DiaTextRevealProps
-  extends Omit<
-    ComponentPropsWithoutRef<typeof motion.span>,
-    | "ref"
-    | "children"
-    | "style"
-    | "animate"
-    | "transition"
-    | "color"
-  > {
+  extends Omit<ComponentPropsWithoutRef<typeof motion.span>, 'ref' | 'children' | 'style' | 'animate' | 'transition' | 'color'> {
   /** Text to reveal. Pass multiple strings to rotate when `repeat` is `true`. */
   text: string | string[];
   /** Colors sampled across the moving gradient band. */
@@ -82,7 +52,7 @@ export interface DiaTextRevealProps
 export function DiaTextReveal({
   text,
   colors = DEFAULT_COLORS,
-  textColor = "var(--color-foreground)",
+  textColor = 'var(--color-foreground)',
   duration = 1,
   delay = 0,
   repeat = false,
@@ -104,10 +74,7 @@ export function DiaTextReveal({
   const lead = Math.max(0, exitLead ?? duration * EXIT_LEAD_RATIO);
   const exitTotal = lead + exitSpan;
   const leadFraction = exitTotal > 0 ? lead / exitTotal : 0;
-  const exitOpacityEase = useMemo(
-    () => makeExitEase(leadFraction),
-    [leadFraction],
-  );
+  const exitOpacityEase = useMemo(() => makeExitEase(leadFraction), [leadFraction]);
 
   const spanRef = useRef<HTMLSpanElement>(null);
   const optsRef = useRef({ repeat, repeatDelay, texts });
@@ -139,15 +106,14 @@ export function DiaTextReveal({
   });
 
   // biome-ignore lint/plugin: measures live DOM layout (getBoundingClientRect on a ghost clone) — post-render measurement.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-measures only when the text content changes; isMulti/texts are derived from the same text prop.
   useEffect(() => {
     const el = spanRef.current;
     if (!(el && isMulti) || wrap) return;
-    const measure = () =>
-      setMeasuredWidths(measureWidths(el, texts));
+    const measure = () => setMeasuredWidths(measureWidths(el, texts));
     measure();
-    if (document.fonts.status !== "loaded")
-      document.fonts.ready.then(measure);
-  }, [Array.isArray(text) ? text.join("\0") : text, isMulti, wrap, texts]);
+    if (document.fonts.status !== 'loaded') document.fonts.ready.then(measure);
+  }, [Array.isArray(text) ? text.join('\0') : text, isMulti, wrap, texts]);
 
   // biome-ignore lint/plugin: subscribes a ResizeObserver to live DOM layout.
   useEffect(() => {
@@ -191,7 +157,7 @@ export function DiaTextReveal({
 
   const onSweepEnd = useCallback(
     (event: AnimationEvent<HTMLSpanElement>) => {
-      if (!event.animationName.startsWith("dia-sweep")) return;
+      if (!event.animationName.startsWith('dia-sweep')) return;
       if (!optsRef.current.repeat) return;
       scheduleRepeat();
     },
@@ -205,11 +171,7 @@ export function DiaTextReveal({
     if (!start) return;
     if (once && hasPlayedRef.current) return;
     hasPlayedRef.current = true;
-    setSweep((prev) =>
-      prev === null
-        ? { cycle: 0, lead: false }
-        : { cycle: prev.cycle + 1, lead: false },
-    );
+    setSweep((prev) => (prev === null ? { cycle: 0, lead: false } : { cycle: prev.cycle + 1, lead: false }));
   }, [isInView, start, startOnView, once, prefersReducedMotion]);
 
   // biome-ignore lint/plugin: pauses/re-arms a pending timer on live viewport presence.
@@ -245,10 +207,7 @@ export function DiaTextReveal({
     return (
       <motion.span
         ref={spanRef}
-        className={cn(
-          "align-baseline text-inherit leading-[100%]",
-          className,
-        )}
+        className={cn('align-baseline text-inherit leading-[100%]', className)}
         style={revealStyle}
         {...props}
         onAnimationEnd={onSweepEnd}
@@ -257,24 +216,15 @@ export function DiaTextReveal({
       </motion.span>
     );
 
-  const fixedW =
-    !wrap && fixedWidth && measuredWidths.length > 0
-      ? Math.max(...measuredWidths)
-      : undefined;
-  const animatedW =
-    wrap || fixedWidth ? undefined : measuredWidths[activeIndex];
+  const fixedW = !wrap && fixedWidth && measuredWidths.length > 0 ? Math.max(...measuredWidths) : undefined;
+  const animatedW = wrap || fixedWidth ? undefined : measuredWidths[activeIndex];
   const animatedH = wrap ? wrapHeight?.h : undefined;
-  const heightDelay =
-    exiting !== null && wrapHeight?.shrink ? exitTotal : 0;
+  const heightDelay = exiting !== null && wrapHeight?.shrink ? exitTotal : 0;
 
   const incoming = (
     <span
       ref={innerRef}
-      className={cn(
-        "inline-block",
-        wrap && "w-full",
-        !wrap && "whitespace-nowrap",
-      )}
+      className={cn('inline-block', wrap && 'w-full', !wrap && 'whitespace-nowrap')}
       style={revealStyle}
       onAnimationEnd={onSweepEnd}
     >
@@ -287,8 +237,8 @@ export function DiaTextReveal({
       ref={spanRef}
       className={cn(
         wrap
-          ? "relative inline-block w-full text-center align-baseline text-inherit"
-          : "relative inline-block whitespace-nowrap text-center align-baseline text-inherit leading-[100%]",
+          ? 'relative inline-block w-full text-center align-baseline text-inherit'
+          : 'relative inline-block whitespace-nowrap text-center align-baseline text-inherit leading-[100%]',
         className,
       )}
       style={{

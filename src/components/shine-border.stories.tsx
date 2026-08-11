@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { ShineBorder } from "./shine-border.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { ShineBorder } from './shine-border.js';
 
 const meta = {
-  title: "Effects/ShineBorder",
+  title: 'Effects/ShineBorder',
   component: ShineBorder,
   decorators: [
     (Story) => (

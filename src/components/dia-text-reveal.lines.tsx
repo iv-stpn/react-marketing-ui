@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 
-import { cn } from "../lib/utils.js";
+import { cn } from '../lib/utils.js';
 
 type ExitingLineProps = {
   text: string;
@@ -23,11 +23,7 @@ type HeightClipperProps = {
 
 type WidthReservationProps = { texts: string[] };
 
-export function HeightClipper({
-  height,
-  delay,
-  children,
-}: HeightClipperProps) {
+export function HeightClipper({ height, delay, children }: HeightClipperProps) {
   return (
     <motion.span
       className="block w-full overflow-hidden"
@@ -41,34 +37,18 @@ export function HeightClipper({
   );
 }
 
-export function ExitingLine({
-  text,
-  textColor,
-  duration,
-  fallDuration,
-  opacityEase,
-  wrap = false,
-  onDone,
-}: ExitingLineProps) {
+export function ExitingLine({ text, textColor, duration, fallDuration, opacityEase, wrap = false, onDone }: ExitingLineProps) {
   return (
     <motion.span
       aria-hidden={true}
       className={cn(
         wrap
-          ? "pointer-events-none absolute top-0 left-0 w-full"
-          : "pointer-events-none absolute top-0 left-1/2 whitespace-nowrap",
+          ? 'pointer-events-none absolute top-0 left-0 w-full'
+          : 'pointer-events-none absolute top-0 left-1/2 whitespace-nowrap',
       )}
       style={{ color: textColor }}
-      initial={
-        wrap
-          ? { opacity: 1, y: 0 }
-          : { opacity: 1, x: "-50%", y: 0 }
-      }
-      animate={
-        wrap
-          ? { opacity: 0, y: 14 }
-          : { opacity: 0, x: "-50%", y: 14 }
-      }
+      initial={wrap ? { opacity: 1, y: 0 } : { opacity: 1, x: '-50%', y: 0 }}
+      animate={wrap ? { opacity: 0, y: 14 } : { opacity: 0, x: '-50%', y: 14 }}
       transition={{
         opacity: { duration, ease: opacityEase },
         y: { duration: fallDuration, ease: [0.22, 0.61, 0.36, 1] },
@@ -82,10 +62,7 @@ export function ExitingLine({
 
 export function WidthReservation({ texts }: WidthReservationProps) {
   return (
-    <span
-      aria-hidden={true}
-      className="invisible block h-0 overflow-hidden"
-    >
+    <span aria-hidden={true} className="invisible block h-0 overflow-hidden">
       {texts.map((t) => (
         <span key={t} className="block">
           {t}

@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { LiquidMetal } from "./liquid-metal.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { LiquidMetal } from './liquid-metal.js';
 
 const meta = {
-  title: "Effects/LiquidMetal",
+  title: 'Effects/LiquidMetal',
   component: LiquidMetal,
   decorators: [
     (Story) => (

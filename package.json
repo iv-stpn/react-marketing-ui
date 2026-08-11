@@ -117,6 +117,76 @@
         "default": "./dist/dia-text-reveal.cjs"
       }
     },
+    "./accordion": {
+      "import": {
+        "types": "./dist/accordion.d.ts",
+        "default": "./dist/accordion.js"
+      },
+      "require": {
+        "types": "./dist/accordion.d.cts",
+        "default": "./dist/accordion.cjs"
+      }
+    },
+    "./card": {
+      "import": {
+        "types": "./dist/card.d.ts",
+        "default": "./dist/card.js"
+      },
+      "require": {
+        "types": "./dist/card.d.cts",
+        "default": "./dist/card.cjs"
+      }
+    },
+    "./animated-beam": {
+      "import": {
+        "types": "./dist/animated-beam.d.ts",
+        "default": "./dist/animated-beam.js"
+      },
+      "require": {
+        "types": "./dist/animated-beam.d.cts",
+        "default": "./dist/animated-beam.cjs"
+      }
+    },
+    "./glossy-button": {
+      "import": {
+        "types": "./dist/glossy-button.d.ts",
+        "default": "./dist/glossy-button.js"
+      },
+      "require": {
+        "types": "./dist/glossy-button.d.cts",
+        "default": "./dist/glossy-button.cjs"
+      }
+    },
+    "./feature-card": {
+      "import": {
+        "types": "./dist/feature-card.d.ts",
+        "default": "./dist/feature-card.js"
+      },
+      "require": {
+        "types": "./dist/feature-card.d.cts",
+        "default": "./dist/feature-card.cjs"
+      }
+    },
+    "./rolling-badge": {
+      "import": {
+        "types": "./dist/rolling-badge.d.ts",
+        "default": "./dist/rolling-badge.js"
+      },
+      "require": {
+        "types": "./dist/rolling-badge.d.cts",
+        "default": "./dist/rolling-badge.cjs"
+      }
+    },
+    "./elevated-input": {
+      "import": {
+        "types": "./dist/elevated-input.d.ts",
+        "default": "./dist/elevated-input.js"
+      },
+      "require": {
+        "types": "./dist/elevated-input.d.cts",
+        "default": "./dist/elevated-input.cjs"
+      }
+    },
     "./lib/cn": {
       "import": {
         "types": "./dist/lib/utils.d.ts",
@@ -163,6 +233,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@base-ui/react": "^1.7.0",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

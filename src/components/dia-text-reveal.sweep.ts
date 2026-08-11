@@ -10,7 +10,7 @@
  * the raster, which is what keeps the sweep moving while the page is being scrolled.
  */
 
-import type { CSSProperties } from "react";
+import type { CSSProperties } from 'react';
 
 /** Half-width of the colour band, in percent of the line. */
 const BAND_HALF = 17;
@@ -20,17 +20,12 @@ const SWEEP_START = -BAND_HALF;
 const SWEEP_END = 100 + BAND_HALF;
 
 /** Cubic in-out: the band accelerates in, then eases out. */
-const sweepEaseFn = (t: number) =>
-  t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+const sweepEaseFn = (t: number) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
 
 /**
  * Fraction of the line the sweep has painted at `progress` (0–1 of the sweep's duration).
  */
-const coverageAt = (progress: number) =>
-  Math.min(
-    1,
-    (sweepEaseFn(progress) * (SWEEP_END - SWEEP_START)) / 100,
-  );
+const coverageAt = (progress: number) => Math.min(1, (sweepEaseFn(progress) * (SWEEP_END - SWEEP_START)) / 100);
 
 /**
  * Point in the sweep (0–1) at which the whole line is painted.
@@ -49,16 +44,12 @@ const COVERAGE_SPAN = (() => {
 const EXIT_FADE_BIAS = 0.4;
 
 /** Easing for the outgoing line's fade, tracking how much of the incoming line is painted. */
-const exitEase = (t: number) =>
-  coverageAt(t * COVERAGE_SPAN) ** EXIT_FADE_BIAS;
+const exitEase = (t: number) => coverageAt(t * COVERAGE_SPAN) ** EXIT_FADE_BIAS;
 
 const makeExitEase = (leadFraction: number) => {
   if (leadFraction <= 0) return exitEase;
   if (leadFraction >= 1) return () => 0;
-  return (t: number) =>
-    t <= leadFraction
-      ? 0
-      : exitEase((t - leadFraction) / (1 - leadFraction));
+  return (t: number) => (t <= leadFraction ? 0 : exitEase((t - leadFraction) / (1 - leadFraction)));
 };
 
 /* ── Sliding-gradient geometry ───────────────────────────────────────── */
@@ -66,8 +57,7 @@ const makeExitEase = (leadFraction: number) => {
 const SWEEP_SCALE = 3;
 const BAND_HALF_IMAGE = BAND_HALF / SWEEP_SCALE;
 
-const positionFor = (pos: number) =>
-  (pos - 50 * SWEEP_SCALE) / (1 - SWEEP_SCALE);
+const positionFor = (pos: number) => (pos - 50 * SWEEP_SCALE) / (1 - SWEEP_SCALE);
 
 /** Position holding the band fully left of the line — nothing painted. */
 const SWEEP_FROM = `${positionFor(SWEEP_START).toFixed(3)}%`;
@@ -77,33 +67,23 @@ const SWEEP_TO = `${positionFor(SWEEP_END).toFixed(3)}%`;
 const SWEEP_SIZE = `${SWEEP_SCALE * 100}% 100%`;
 
 const EASE_SAMPLES = 24;
-const sweepEaseCss = `linear(${Array.from(
-  { length: EASE_SAMPLES + 1 },
-  (_, i) => sweepEaseFn(i / EASE_SAMPLES).toFixed(5),
-).join(", ")})`;
+const sweepEaseCss = `linear(${Array.from({ length: EASE_SAMPLES + 1 }, (_, i) => sweepEaseFn(i / EASE_SAMPLES).toFixed(5)).join(
+  ', ',
+)})`;
 
 function buildSweepGradient(colors: string[], textColor: string) {
   const bandStart = 50 - BAND_HALF_IMAGE;
   const bandEnd = 50 + BAND_HALF_IMAGE;
   const n = colors.length;
 
-  const parts: string[] = [
-    `${textColor} 0%`,
-    `${textColor} ${bandStart.toFixed(3)}%`,
-  ];
+  const parts: string[] = [`${textColor} 0%`, `${textColor} ${bandStart.toFixed(3)}%`];
   for (const [i, c] of colors.entries()) {
-    const pct =
-      n === 1
-        ? 50
-        : bandStart + (i / (n - 1)) * BAND_HALF_IMAGE * 2;
+    const pct = n === 1 ? 50 : bandStart + (i / (n - 1)) * BAND_HALF_IMAGE * 2;
     parts.push(`${c} ${pct.toFixed(3)}%`);
   }
-  parts.push(
-    `transparent ${bandEnd.toFixed(3)}%`,
-    "transparent 100%",
-  );
+  parts.push(`transparent ${bandEnd.toFixed(3)}%`, 'transparent 100%');
 
-  return `linear-gradient(90deg, ${parts.join(", ")})`;
+  return `linear-gradient(90deg, ${parts.join(', ')})`;
 }
 
 export type Sweep = { cycle: number; lead: boolean } | null;
@@ -118,35 +98,26 @@ type SweepStyleArgs = {
   reduced: boolean;
 };
 
-function buildSweepStyle({
-  colors,
-  textColor,
-  duration,
-  delay,
-  sweep,
-  paused,
-  reduced,
-}: SweepStyleArgs) {
+function buildSweepStyle({ colors, textColor, duration, delay, sweep, paused, reduced }: SweepStyleArgs) {
   return {
-    color: "transparent",
-    backgroundClip: "text",
-    WebkitBackgroundClip: "text",
+    color: 'transparent',
+    backgroundClip: 'text',
+    WebkitBackgroundClip: 'text',
     backgroundImage: buildSweepGradient(colors, textColor),
-    backgroundRepeat: "no-repeat",
+    backgroundRepeat: 'no-repeat',
     backgroundSize: SWEEP_SIZE,
     backgroundPositionX: reduced ? SWEEP_TO : SWEEP_FROM,
-    "--dia-sweep-from": SWEEP_FROM,
-    "--dia-sweep-to": SWEEP_TO,
+    '--dia-sweep-from': SWEEP_FROM,
+    '--dia-sweep-to': SWEEP_TO,
     ...(sweep !== null &&
       !reduced && {
-        animationName:
-          sweep.cycle % 2 === 0 ? "dia-sweep-a" : "dia-sweep-b",
+        animationName: sweep.cycle % 2 === 0 ? 'dia-sweep-a' : 'dia-sweep-b',
         animationDuration: `${duration}s`,
         animationDelay: `${delay}s`,
         animationTimingFunction: sweepEaseCss,
-        animationFillMode: "both",
+        animationFillMode: 'both',
         animationIterationCount: 1,
-        animationPlayState: paused ? "paused" : "running",
+        animationPlayState: paused ? 'paused' : 'running',
       }),
   } satisfies CSSProperties & Record<`--${string}`, string>;
 }
