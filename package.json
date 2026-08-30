@@ -1,6 +1,6 @@
 {
   "name": "react-marketing-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Reusable landing & marketing page UI components for React — animated text reveals, shader effects, magnetic tabs, and scroll-triggered entrances.",
   "keywords": [
     "react",
@@ -31,331 +31,331 @@
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
+        "default": "./dist/index.js"
       }
     },
     "./sparkles-text": {
       "import": {
         "types": "./dist/sparkles-text.d.ts",
-        "default": "./dist/sparkles-text.js"
+        "default": "./dist/sparkles-text.mjs"
       },
       "require": {
         "types": "./dist/sparkles-text.d.cts",
-        "default": "./dist/sparkles-text.cjs"
+        "default": "./dist/sparkles-text.js"
       }
     },
     "./rainbow-button": {
       "import": {
         "types": "./dist/rainbow-button.d.ts",
-        "default": "./dist/rainbow-button.js"
+        "default": "./dist/rainbow-button.mjs"
       },
       "require": {
         "types": "./dist/rainbow-button.d.cts",
-        "default": "./dist/rainbow-button.cjs"
+        "default": "./dist/rainbow-button.js"
       }
     },
     "./shine-border": {
       "import": {
         "types": "./dist/shine-border.d.ts",
-        "default": "./dist/shine-border.js"
+        "default": "./dist/shine-border.mjs"
       },
       "require": {
         "types": "./dist/shine-border.d.cts",
-        "default": "./dist/shine-border.cjs"
+        "default": "./dist/shine-border.js"
       }
     },
     "./liquid-metal": {
       "import": {
         "types": "./dist/liquid-metal.d.ts",
-        "default": "./dist/liquid-metal.js"
+        "default": "./dist/liquid-metal.mjs"
       },
       "require": {
         "types": "./dist/liquid-metal.d.cts",
-        "default": "./dist/liquid-metal.cjs"
+        "default": "./dist/liquid-metal.js"
       }
     },
     "./tabs": {
       "import": {
         "types": "./dist/tabs.d.ts",
-        "default": "./dist/tabs.js"
+        "default": "./dist/tabs.mjs"
       },
       "require": {
         "types": "./dist/tabs.d.cts",
-        "default": "./dist/tabs.cjs"
+        "default": "./dist/tabs.js"
       }
     },
     "./highlighter": {
       "import": {
         "types": "./dist/highlighter.d.ts",
-        "default": "./dist/highlighter.js"
+        "default": "./dist/highlighter.mjs"
       },
       "require": {
         "types": "./dist/highlighter.d.cts",
-        "default": "./dist/highlighter.cjs"
+        "default": "./dist/highlighter.js"
       }
     },
     "./fade-in": {
       "import": {
         "types": "./dist/fade-in.d.ts",
-        "default": "./dist/fade-in.js"
+        "default": "./dist/fade-in.mjs"
       },
       "require": {
         "types": "./dist/fade-in.d.cts",
-        "default": "./dist/fade-in.cjs"
+        "default": "./dist/fade-in.js"
       }
     },
     "./dia-text-reveal": {
       "import": {
         "types": "./dist/dia-text-reveal.d.ts",
-        "default": "./dist/dia-text-reveal.js"
+        "default": "./dist/dia-text-reveal.mjs"
       },
       "require": {
         "types": "./dist/dia-text-reveal.d.cts",
-        "default": "./dist/dia-text-reveal.cjs"
+        "default": "./dist/dia-text-reveal.js"
       }
     },
     "./accordion": {
       "import": {
         "types": "./dist/accordion.d.ts",
-        "default": "./dist/accordion.js"
+        "default": "./dist/accordion.mjs"
       },
       "require": {
         "types": "./dist/accordion.d.cts",
-        "default": "./dist/accordion.cjs"
+        "default": "./dist/accordion.js"
       }
     },
     "./card": {
       "import": {
         "types": "./dist/card.d.ts",
-        "default": "./dist/card.js"
+        "default": "./dist/card.mjs"
       },
       "require": {
         "types": "./dist/card.d.cts",
-        "default": "./dist/card.cjs"
+        "default": "./dist/card.js"
       }
     },
     "./animated-beam": {
       "import": {
         "types": "./dist/animated-beam.d.ts",
-        "default": "./dist/animated-beam.js"
+        "default": "./dist/animated-beam.mjs"
       },
       "require": {
         "types": "./dist/animated-beam.d.cts",
-        "default": "./dist/animated-beam.cjs"
+        "default": "./dist/animated-beam.js"
       }
     },
     "./glossy-button": {
       "import": {
         "types": "./dist/glossy-button.d.ts",
-        "default": "./dist/glossy-button.js"
+        "default": "./dist/glossy-button.mjs"
       },
       "require": {
         "types": "./dist/glossy-button.d.cts",
-        "default": "./dist/glossy-button.cjs"
+        "default": "./dist/glossy-button.js"
       }
     },
     "./feature-card": {
       "import": {
         "types": "./dist/feature-card.d.ts",
-        "default": "./dist/feature-card.js"
+        "default": "./dist/feature-card.mjs"
       },
       "require": {
         "types": "./dist/feature-card.d.cts",
-        "default": "./dist/feature-card.cjs"
+        "default": "./dist/feature-card.js"
       }
     },
     "./rolling-badge": {
       "import": {
         "types": "./dist/rolling-badge.d.ts",
-        "default": "./dist/rolling-badge.js"
+        "default": "./dist/rolling-badge.mjs"
       },
       "require": {
         "types": "./dist/rolling-badge.d.cts",
-        "default": "./dist/rolling-badge.cjs"
+        "default": "./dist/rolling-badge.js"
       }
     },
     "./elevated-input": {
       "import": {
         "types": "./dist/elevated-input.d.ts",
-        "default": "./dist/elevated-input.js"
+        "default": "./dist/elevated-input.mjs"
       },
       "require": {
         "types": "./dist/elevated-input.d.cts",
-        "default": "./dist/elevated-input.cjs"
+        "default": "./dist/elevated-input.js"
       }
     },
     "./input": {
       "import": {
         "types": "./dist/input.d.ts",
-        "default": "./dist/input.js"
+        "default": "./dist/input.mjs"
       },
       "require": {
         "types": "./dist/input.d.cts",
-        "default": "./dist/input.cjs"
+        "default": "./dist/input.js"
       }
     },
     "./password-input": {
       "import": {
         "types": "./dist/password-input.d.ts",
-        "default": "./dist/password-input.js"
+        "default": "./dist/password-input.mjs"
       },
       "require": {
         "types": "./dist/password-input.d.cts",
-        "default": "./dist/password-input.cjs"
+        "default": "./dist/password-input.js"
       }
     },
     "./range-slider": {
       "import": {
         "types": "./dist/range-slider.d.ts",
-        "default": "./dist/range-slider.js"
+        "default": "./dist/range-slider.mjs"
       },
       "require": {
         "types": "./dist/range-slider.d.cts",
-        "default": "./dist/range-slider.cjs"
+        "default": "./dist/range-slider.js"
       }
     },
     "./lib/cn": {
       "import": {
         "types": "./dist/lib/utils.d.ts",
-        "default": "./dist/lib/cn.js"
+        "default": "./dist/lib/cn.mjs"
       },
       "require": {
         "types": "./dist/lib/utils.d.cts",
-        "default": "./dist/lib/cn.cjs"
+        "default": "./dist/lib/cn.js"
       }
     },
     "./lib/use-media-query": {
       "import": {
         "types": "./dist/lib/use-media-query.d.ts",
-        "default": "./dist/lib/use-media-query.js"
+        "default": "./dist/lib/use-media-query.mjs"
       },
       "require": {
         "types": "./dist/lib/use-media-query.d.cts",
-        "default": "./dist/lib/use-media-query.cjs"
+        "default": "./dist/lib/use-media-query.js"
       }
     },
     "./button": {
       "import": {
         "types": "./dist/button.d.ts",
-        "default": "./dist/button.js"
+        "default": "./dist/button.mjs"
       },
       "require": {
         "types": "./dist/button.d.cts",
-        "default": "./dist/button.cjs"
+        "default": "./dist/button.js"
       }
     },
     "./action-swap": {
       "import": {
         "types": "./dist/action-swap.d.ts",
-        "default": "./dist/action-swap.js"
+        "default": "./dist/action-swap.mjs"
       },
       "require": {
         "types": "./dist/action-swap.d.cts",
-        "default": "./dist/action-swap.cjs"
+        "default": "./dist/action-swap.js"
       }
     },
     "./savings-badge": {
       "import": {
         "types": "./dist/savings-badge.d.ts",
-        "default": "./dist/savings-badge.js"
+        "default": "./dist/savings-badge.mjs"
       },
       "require": {
         "types": "./dist/savings-badge.d.cts",
-        "default": "./dist/savings-badge.cjs"
+        "default": "./dist/savings-badge.js"
       }
     },
     "./theme-toggle": {
       "import": {
         "types": "./dist/theme-toggle.d.ts",
-        "default": "./dist/theme-toggle.js"
+        "default": "./dist/theme-toggle.mjs"
       },
       "require": {
         "types": "./dist/theme-toggle.d.cts",
-        "default": "./dist/theme-toggle.cjs"
+        "default": "./dist/theme-toggle.js"
       }
     },
     "./grainient": {
       "import": {
         "types": "./dist/grainient.d.ts",
-        "default": "./dist/grainient.js"
+        "default": "./dist/grainient.mjs"
       },
       "require": {
         "types": "./dist/grainient.d.cts",
-        "default": "./dist/grainient.cjs"
+        "default": "./dist/grainient.js"
       }
     },
     "./flowchart-parts": {
       "import": {
         "types": "./dist/flowchart-parts.d.ts",
-        "default": "./dist/flowchart-parts.js"
+        "default": "./dist/flowchart-parts.mjs"
       },
       "require": {
         "types": "./dist/flowchart-parts.d.cts",
-        "default": "./dist/flowchart-parts.cjs"
+        "default": "./dist/flowchart-parts.js"
       }
     },
     "./navigation-menu": {
       "import": {
         "types": "./dist/navigation-menu.d.ts",
-        "default": "./dist/navigation-menu.js"
+        "default": "./dist/navigation-menu.mjs"
       },
       "require": {
         "types": "./dist/navigation-menu.d.cts",
-        "default": "./dist/navigation-menu.cjs"
+        "default": "./dist/navigation-menu.js"
       }
     },
     "./navigation-menu-styles": {
       "import": {
         "types": "./dist/navigation-menu-styles.d.ts",
-        "default": "./dist/navigation-menu-styles.js"
+        "default": "./dist/navigation-menu-styles.mjs"
       },
       "require": {
         "types": "./dist/navigation-menu-styles.d.cts",
-        "default": "./dist/navigation-menu-styles.cjs"
+        "default": "./dist/navigation-menu-styles.js"
       }
     },
     "./navigation-menu-icons": {
       "import": {
         "types": "./dist/navigation-menu-icons.d.ts",
-        "default": "./dist/navigation-menu-icons.js"
+        "default": "./dist/navigation-menu-icons.mjs"
       },
       "require": {
         "types": "./dist/navigation-menu-icons.d.cts",
-        "default": "./dist/navigation-menu-icons.cjs"
+        "default": "./dist/navigation-menu-icons.js"
       }
     },
     "./lib/surface": {
       "import": {
         "types": "./dist/lib/surface.d.ts",
-        "default": "./dist/lib/surface.js"
+        "default": "./dist/lib/surface.mjs"
       },
       "require": {
         "types": "./dist/lib/surface.d.cts",
-        "default": "./dist/lib/surface.cjs"
+        "default": "./dist/lib/surface.js"
       }
     },
     "./lib/breakpoints": {
       "import": {
         "types": "./dist/lib/breakpoints.d.ts",
-        "default": "./dist/lib/breakpoints.js"
+        "default": "./dist/lib/breakpoints.mjs"
       },
       "require": {
         "types": "./dist/lib/breakpoints.d.cts",
-        "default": "./dist/lib/breakpoints.cjs"
+        "default": "./dist/lib/breakpoints.js"
       }
     },
     "./lib/ease": {
       "import": {
         "types": "./dist/lib/ease.d.ts",
-        "default": "./dist/lib/ease.js"
+        "default": "./dist/lib/ease.mjs"
       },
       "require": {
         "types": "./dist/lib/ease.d.cts",
-        "default": "./dist/lib/ease.cjs"
+        "default": "./dist/lib/ease.js"
       }
     },
     "./grainient.css": "./dist/grainient.css"

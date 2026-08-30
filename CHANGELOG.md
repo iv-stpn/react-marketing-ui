@@ -1,5 +1,10 @@
 # react-marketing-ui
 
+## 0.0.3
+
+### Patch Changes
+
+- Fix the `exports` map shape for every subpath: `import` now points at the true ESM build (`dist/*.mjs`) and `require` at the CJS build (`dist/*.js`) — the previous map pointed `import` at CJS and `require` at non-existent `dist/*.cjs` files, breaking Next.js SSR consumers (`createContext is not a function`).
 ## 0.0.2
 
 ### Patch Changes
