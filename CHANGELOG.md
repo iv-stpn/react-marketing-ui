@@ -1,5 +1,10 @@
 # react-marketing-ui
 
+## 0.0.2
+
+### Patch Changes
+
+- Fix the `lib/surface`, `lib/breakpoints`, `lib/ease` exports map entries — the declarations live at `dist/lib/*` (tsup nests lib entries), not `dist/*`.
 ## 0.0.1
 
 ### Patch Changes

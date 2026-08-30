@@ -1,6 +1,6 @@
 {
   "name": "react-marketing-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Reusable landing & marketing page UI components for React — animated text reveals, shader effects, magnetic tabs, and scroll-triggered entrances.",
   "keywords": [
     "react",
@@ -330,32 +330,32 @@
     },
     "./lib/surface": {
       "import": {
-        "types": "./dist/surface.d.ts",
-        "default": "./dist/surface.js"
+        "types": "./dist/lib/surface.d.ts",
+        "default": "./dist/lib/surface.js"
       },
       "require": {
-        "types": "./dist/surface.d.cts",
-        "default": "./dist/surface.cjs"
+        "types": "./dist/lib/surface.d.cts",
+        "default": "./dist/lib/surface.cjs"
       }
     },
     "./lib/breakpoints": {
       "import": {
-        "types": "./dist/breakpoints.d.ts",
-        "default": "./dist/breakpoints.js"
+        "types": "./dist/lib/breakpoints.d.ts",
+        "default": "./dist/lib/breakpoints.js"
       },
       "require": {
-        "types": "./dist/breakpoints.d.cts",
-        "default": "./dist/breakpoints.cjs"
+        "types": "./dist/lib/breakpoints.d.cts",
+        "default": "./dist/lib/breakpoints.cjs"
       }
     },
     "./lib/ease": {
       "import": {
-        "types": "./dist/ease.d.ts",
-        "default": "./dist/ease.js"
+        "types": "./dist/lib/ease.d.ts",
+        "default": "./dist/lib/ease.js"
       },
       "require": {
-        "types": "./dist/ease.d.cts",
-        "default": "./dist/ease.cjs"
+        "types": "./dist/lib/ease.d.cts",
+        "default": "./dist/lib/ease.cjs"
       }
     },
     "./grainient.css": "./dist/grainient.css"
