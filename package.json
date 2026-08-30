@@ -1,6 +1,6 @@
 {
   "name": "react-marketing-ui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Reusable landing & marketing page UI components for React — animated text reveals, shader effects, magnetic tabs, and scroll-triggered entrances.",
   "keywords": [
     "react",
@@ -371,7 +371,7 @@
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "tsup && bun run build:types",
+    "build": "tsup && bun run build:types && bun scripts/add-client-directives.ts",
     "build:types": "tsc -p tsconfig.build.json && bun scripts/gen-cjs-types.ts",
     "build-storybook": "storybook build",
     "typecheck": "tsc --noEmit",

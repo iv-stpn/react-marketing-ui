@@ -37,6 +37,12 @@ export default defineConfig({
     'lib/surface': 'src/lib/surface.ts',
   },
   format: ['cjs', 'esm'],
+  splitting: false, // self-contained entries — shared chunks strip 'use client' and break Next RSC boundaries
+  // tsup strips 'use client' from output; re-add it so Next treats every entry
+  // as a client module (all components are presentational / hook-using).
+  // tsup strips 'use client' from output; re-add it so Next treats every entry
+  // as a client module (all components are presentational / hook-using).
+  banner: { js: '"use client";' },
   dts: false,
   treeshake: true,
   clean: true,

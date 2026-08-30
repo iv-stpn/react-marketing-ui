@@ -1,5 +1,10 @@
 # react-marketing-ui
 
+## 0.0.4
+
+### Patch Changes
+
+- Set `splitting: false` in tsup so every entry ships as one self-contained file with its `'use client'` directive at the top. Code-split shared chunks stripped the directive, so Next.js SSR treated hook-using components (ActionSwapRoll, ThemeToggle, …) as server modules and crashed on client hooks (`useReducedMotion` from the server).
 ## 0.0.3
 
 ### Patch Changes
