@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
-import { RangeSlider } from "./range-slider.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { RangeSlider } from './range-slider.js';
 
 function Controlled() {
   const steps = [0, 50, 100, 250, 500];
@@ -12,20 +12,13 @@ function Controlled() {
 
   return (
     <div className="max-w-sm">
-      <RangeSlider
-        label="Storage"
-        value={value}
-        steps={steps}
-        ticks={ticks}
-        valueLabel={`${value} GB`}
-        onChange={setValue}
-      />
+      <RangeSlider label="Storage" value={value} steps={steps} ticks={ticks} valueLabel={`${value} GB`} onChange={setValue} />
     </div>
   );
 }
 
 const meta = {
-  title: "Form/RangeSlider",
+  title: 'Form/RangeSlider',
   component: Controlled,
 } satisfies Meta<typeof Controlled>;
 

@@ -1,57 +1,40 @@
-"use client";
+'use client';
 
-import { useCallback, useState } from "react";
-import { Input, type InputProps } from "./input.js";
+import { useCallback, useState } from 'react';
+import { Input, type InputProps } from './input.js';
 
-export type PasswordInputProps = Omit<
-  InputProps,
-  "rightAdornment" | "inputType"
-> & {
-  inputType?: "password" | "new-password";
+export type PasswordInputProps = Omit<InputProps, 'rightAdornment' | 'inputType'> & {
+  inputType?: 'password' | 'new-password';
 };
 
-export function PasswordInput({
-  inputType = "password",
-  ...props
-}: PasswordInputProps) {
+export function PasswordInput({ inputType = 'password', ...props }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
 
-  const toggle = useCallback(
-    () => setVisible((v) => !v),
-    [],
-  );
+  const toggle = useCallback(() => setVisible((v) => !v), []);
 
   const eye = (
     <button
       type="button"
       onClick={toggle}
       className="pointer-events-auto cursor-pointer text-(--color-muted-foreground) hover:text-(--color-foreground)"
-      aria-label={visible ? "Hide password" : "Show password"}
+      aria-label={visible ? 'Hide password' : 'Show password'}
       tabIndex={-1}
     >
-      {visible ? (
-        <EyeOffIcon className="size-5" />
-      ) : (
-        <EyeIcon className="size-5" />
-      )}
+      {visible ? <EyeOffIcon className="size-5" /> : <EyeIcon className="size-5" />}
     </button>
   );
 
   return (
     <Input
       {...props}
-      inputType={visible ? "text" : "password"}
+      inputType={visible ? 'text' : 'password'}
       rightAdornment={eye}
-      autoComplete={
-        inputType === "new-password"
-          ? "new-password"
-          : "current-password"
-      }
+      autoComplete={inputType === 'new-password' ? 'new-password' : 'current-password'}
     />
   );
 }
 
-function EyeIcon(props: React.ComponentProps<"svg">) {
+function EyeIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
       aria-hidden="true"
@@ -69,7 +52,7 @@ function EyeIcon(props: React.ComponentProps<"svg">) {
   );
 }
 
-function EyeOffIcon(props: React.ComponentProps<"svg">) {
+function EyeOffIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg
       aria-hidden="true"

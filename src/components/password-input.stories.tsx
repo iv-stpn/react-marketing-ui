@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { PasswordInput } from "./password-input.js";
+import type { Meta, StoryObj } from '@storybook/react';
+import { PasswordInput } from './password-input.js';
 
 const meta = {
-  title: "Form/PasswordInput",
+  title: 'Form/PasswordInput',
   component: PasswordInput,
-  args: { label: "Password", placeholder: "Enter password" },
+  args: { label: 'Password', placeholder: 'Enter password' },
 } satisfies Meta<typeof PasswordInput>;
 
 export default meta;

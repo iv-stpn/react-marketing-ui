@@ -25,8 +25,8 @@ function Accordion({
       className={cn(
         'group flex w-full flex-col',
         variant === 'split' && 'space-y-2',
-        variant === 'outline' && 'overflow-hidden rounded-lg border bg-(--color-surface)',
-        variant === 'nested' && 'rounded-lg border bg-(--color-muted) p-1',
+        variant === 'outline' && 'overflow-hidden rounded-lg border bg-(--surface)',
+        variant === 'nested' && 'rounded-lg border bg-muted p-1',
         className,
       )}
       {...props}
@@ -40,32 +40,60 @@ function AccordionItem({ className, ...props }: BaseAccordion.Item.Props) {
       data-slot="accordion-item"
       className={cn(
         'transition-[margin,border-radius,border] duration-250 ease-out-expo',
-        'group-data-[variant=default]:border-(--color-border) group-data-[variant=default]:border-b group-data-[variant=default]:last:border-b-0',
-        'group-data-[variant=split]:overflow-hidden group-data-[variant=split]:rounded-lg group-data-[variant=split]:border group-data-[variant=split]:border-(--color-border) group-data-[variant=split]:bg-(--color-surface)',
-        'group-data-[variant=outline]:border-(--color-border) group-data-[variant=outline]:border-b group-data-[variant=outline]:last:border-b-0',
+        // Default variant styles
+        'group-data-[variant=default]:border-(--border) group-data-[variant=default]:border-b group-data-[variant=default]:last:border-b-0',
+        // Split variant styles (individual cards)
+        'group-data-[variant=split]:overflow-hidden group-data-[variant=split]:rounded-lg group-data-[variant=split]:border group-data-[variant=split]:border-(--border) group-data-[variant=split]:bg-(--surface)',
+        // Outline variant styles (items within single card)
+        'group-data-[variant=outline]:border-(--border) group-data-[variant=outline]:border-b group-data-[variant=outline]:last:border-b-0',
+        // Nested variant styles - items within the single outer card
         'group-data-[variant=nested]:mt-0.5 group-data-[variant=nested]:first:mt-0',
-        'group-data-[variant=isolated-bordered]:overflow-hidden group-data-[variant=isolated-bordered]:border group-data-[variant=isolated-bordered]:border-(--color-border) group-data-[variant=isolated-bordered]:bg-(--color-surface)',
+        // Isolated bordered variant styles - dynamically separates open items from closed ones
+        // Base styles: all items have borders and background to look like cards
+        'group-data-[variant=isolated-bordered]:overflow-hidden group-data-[variant=isolated-bordered]:border group-data-[variant=isolated-bordered]:border-(--border) group-data-[variant=isolated-bordered]:bg-(--surface)',
+        // Closed items: group together by overlapping borders with negative margin
+        // Only apply to closed items that follow another closed item (not open items, first item, or items after open items)
         'group-data-[variant=isolated-bordered]:relative group-data-[variant=isolated-bordered]:not-first:not-data-open:not-[[data-open]+&]:-mt-px',
+        // Opened item - separated with margins
         'group-data-[variant=isolated-bordered]:data-open:mt-2 group-data-[variant=isolated-bordered]:data-open:mb-2 group-data-[variant=isolated-bordered]:data-open:rounded-lg',
+        // First item
         'group-data-[variant=isolated-bordered]:first:rounded-t-lg group-data-[variant=isolated-bordered]:data-open:first:mt-0',
+        // Last item
         'group-data-[variant=isolated-bordered]:last:rounded-b-lg group-data-[variant=isolated-bordered]:data-open:last:mb-0',
+        // Item after open item: round top corners (start of new group)
         'group-data-[variant=isolated-bordered]:[[data-open]+&]:rounded-t-lg',
+        // Item before open item: round bottom corners (end of group)
         'group-data-[variant=isolated-bordered]:[&:has(+_[data-open])]:rounded-b-lg',
-        'group-data-[variant=isolated-filled]:overflow-hidden group-data-[variant=isolated-filled]:bg-(--color-muted)',
+        // Isolated filled variant
+        'group-data-[variant=isolated-filled]:overflow-hidden group-data-[variant=isolated-filled]:bg-muted',
+        // Opened item - separated with margins and rounded
         'group-data-[variant=isolated-filled]:data-open:my-2 group-data-[variant=isolated-filled]:data-open:rounded-lg',
+        // First item
         'group-data-[variant=isolated-filled]:first:rounded-t-lg group-data-[variant=isolated-filled]:data-open:first:mt-0',
+        // Last item
         'group-data-[variant=isolated-filled]:last:rounded-b-lg group-data-[variant=isolated-filled]:data-open:last:mb-0',
+        // Item after open item: round top corners (start of new group)
         'group-data-[variant=isolated-filled]:[[data-open]+&]:rounded-t-lg',
+        // Item before open item: round bottom corners (end of group)
         'group-data-[variant=isolated-filled]:[&:has(+_[data-open])]:rounded-b-lg',
-        'group-data-[variant=isolated-filled-bordered]:overflow-hidden group-data-[variant=isolated-filled-bordered]:bg-(--color-muted)',
-        'group-data-[variant=isolated-filled-bordered]:not-last:border-(--color-border) group-data-[variant=isolated-filled-bordered]:not-last:border-b',
+        // Isolated filled bordered variant - filled background with borders between closed items
+        'group-data-[variant=isolated-filled-bordered]:overflow-hidden group-data-[variant=isolated-filled-bordered]:bg-muted',
+        // All items except last have border-bottom to prevent layout shift, default to visible border
+        'group-data-[variant=isolated-filled-bordered]:not-last:border-(--border) group-data-[variant=isolated-filled-bordered]:not-last:border-b',
+        // Make border transparent (invisible) for: items before open items, and open items themselves
         'group-data-[variant=isolated-filled-bordered]:[&:has(+_[data-open])]:border-transparent',
         'group-data-[variant=isolated-filled-bordered]:data-open:border-transparent',
+        // Opened item - separated with margins and rounded
         'group-data-[variant=isolated-filled-bordered]:data-open:my-2 group-data-[variant=isolated-filled-bordered]:data-open:rounded-lg',
+        // First item
         'group-data-[variant=isolated-filled-bordered]:first:rounded-t-lg group-data-[variant=isolated-filled-bordered]:data-open:first:mt-0',
+        // Last item
         'group-data-[variant=isolated-filled-bordered]:last:rounded-b-lg group-data-[variant=isolated-filled-bordered]:data-open:last:mb-0',
+        // Item after open item: round top corners (start of new group)
         'group-data-[variant=isolated-filled-bordered]:[[data-open]+&]:rounded-t-lg',
+        // Item before open item: round bottom corners (end of group)
         'group-data-[variant=isolated-filled-bordered]:[&:has(+_[data-open])]:rounded-b-lg',
+
         className,
       )}
       {...props}
@@ -74,13 +102,25 @@ function AccordionItem({ className, ...props }: BaseAccordion.Item.Props) {
 }
 
 function AccordionHeader({ className, ...props }: BaseAccordion.Header.Props) {
-  return <BaseAccordion.Header data-slot="accordion-header" className={cn('not-prose', className)} {...props} />;
+  return (
+    <BaseAccordion.Header
+      data-slot="accordion-header"
+      // `not-prose` guards the trigger from document typography when the
+      // accordion is rendered inside a prose/markdown container (e.g. MDX docs),
+      // which would otherwise style this heading with large margins and an
+      // inflated line-height. Inert outside a prose context.
+      className={cn('not-prose', className)}
+      {...props}
+    />
+  );
 }
 
 interface AccordionTriggerProps extends BaseAccordion.Trigger.Props {
   showIndicator?: boolean;
   indicatorType?: 'chevron' | 'plus';
   indicatorPosition?: 'start' | 'end';
+  /** Colour class applied to the indicator glyph, e.g. `text-(--accent-brand)`. Defaults to muted-foreground. */
+  indicatorColor?: string;
   icon?: React.ReactNode;
   subtitle?: React.ReactNode;
 }
@@ -91,6 +131,7 @@ function AccordionTrigger({
   showIndicator = true,
   indicatorType = 'plus',
   indicatorPosition = 'end',
+  indicatorColor,
   icon,
   subtitle,
   ...props
@@ -101,15 +142,17 @@ function AccordionTrigger({
   const renderIndicator = () => {
     if (!showIndicator) return null;
 
+    const indicatorClassName = cn('size-4 shrink-0 transition-transform duration-200 ease-out-expo', indicatorColor);
+
     const indicatorIcon =
       indicatorType === 'chevron' ? (
-        <ChevronIcon className="size-4 shrink-0 text-(--color-muted-foreground) transition-transform duration-200 ease-out-expo" />
+        <ChevronDownIcon data-slot="accordion-indicator" className={indicatorClassName} />
       ) : (
-        <PlusIcon className="size-4 shrink-0 text-(--color-muted-foreground) transition-transform duration-200 ease-out-expo" />
+        <PlusIcon data-slot="accordion-indicator" className={indicatorClassName} />
       );
 
     return (
-      <span className="shrink-0 text-(--color-muted-foreground)" aria-hidden="true">
+      <span className="shrink-0 text-muted-foreground" aria-hidden="true">
         {indicatorIcon}
       </span>
     );
@@ -121,27 +164,32 @@ function AccordionTrigger({
         data-slot="accordion-trigger"
         data-has-icon={hasStartIndicator ? 'true' : undefined}
         className={cn(
-          'group/trigger flex w-full cursor-pointer items-center justify-between gap-3 p-3.5 text-left font-medium text-sm outline-none disabled:pointer-events-none disabled:opacity-60',
+          'group/trigger flex w-full cursor-pointer items-center justify-between gap-3 py-5 px-3.5 text-left font-medium text-sm outline-none disabled:pointer-events-none disabled:opacity-60',
+          // Default variant styles
           'group-data-[variant=default]:px-0',
+          // Split variant styles
           'group-data-[variant=split]:rounded-t-lg',
-          'group-data-[variant=nested]:rounded-sm group-data-[variant=nested]:px-3 group-data-[variant=nested]:py-2.5 group-data-[variant=nested]:hover:bg-background',
-          indicatorType === 'chevron' && '[&[data-panel-open]_svg]:rotate-180',
-          indicatorType === 'plus' && '[&[data-panel-open]_svg]:rotate-90',
+          // Nested variant styles - trigger with subtle interaction
+          'group-data-[variant=nested]:rounded-sm group-data-[variant=nested]:px-3 group-data-[variant=nested]:py-2.5 group-data-[variant=nested]:hover:bg-background group-data-[variant=nested]:dark:hover:bg-background/50',
+          // Indicator rotation animations
+          indicatorType === 'chevron' && '[&[data-panel-open]_[data-slot=accordion-indicator]]:rotate-180',
+          indicatorType === 'plus' && '[&[data-panel-open]_[data-slot=accordion-indicator]]:rotate-90',
           className,
         )}
         {...props}
       >
         {hasStartIndicator ? renderIndicator() : null}
 
+        {/* icon prop — only rendered when indicator is at end position */}
         {icon && !hasStartIndicator && (
-          <span className="shrink-0 text-(--color-muted-foreground)" aria-hidden="true">
+          <span className="shrink-0 text-muted-foreground" aria-hidden="true">
             {icon}
           </span>
         )}
 
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="underline-offset-2 group-hover/trigger:underline">{children}</span>
-          {subtitle ? <span className="text-(--color-muted-foreground) text-sm no-underline">{subtitle}</span> : null}
+          {subtitle ? <span className="text-muted-foreground text-sm no-underline">{subtitle}</span> : null}
         </div>
 
         {hasEndIndicator ? renderIndicator() : null}
@@ -161,15 +209,21 @@ function AccordionContent({ children, className, ...props }: BaseAccordion.Panel
     >
       <div
         className={cn(
-          'p-3.5 text-(--color-muted-foreground)',
+          'p-3.5 text-muted-foreground',
           'group-data-[variant=default]:px-0 group-data-[variant=default]:pt-0',
           'group-data-[variant=split]:pt-0',
           'group-data-[variant=outline]:pt-0',
-          'group-data-[variant=nested]:mt-1 group-data-[variant=nested]:mb-0.5 group-data-[variant=nested]:rounded-sm group-data-[variant=nested]:border group-data-[variant=nested]:bg-background group-data-[variant=nested]:p-3',
+          // Nested variant
+          'group-data-[variant=nested]:mt-1 group-data-[variant=nested]:mb-0.5 group-data-[variant=nested]:rounded-sm group-data-[variant=nested]:border group-data-[variant=nested]:bg-background group-data-[variant=nested]:p-3 group-data-[variant=nested]:[[data-slot=accordion-item]:last-child_&]:mb-0',
+          // Isolated bordered variant
           'group-data-[variant=isolated-bordered]:pt-0',
+          // Isolated filled variant
           'group-data-[variant=isolated-filled]:pt-0',
+          // Isolated filled bordered variant
           'group-data-[variant=isolated-filled-bordered]:pt-0',
+          // Icon alignment - add left padding when parent item contains a trigger with icon
           '[[data-slot=accordion-item]:has([data-has-icon])_&]:pl-[calc(1rem+0.75rem)]',
+          '[[data-slot=accordion-item]:has([data-has-icon])_&]:group-data-[variant=default]:pl-[calc(1rem+0.75rem)]',
           className,
         )}
       >
@@ -182,6 +236,7 @@ function AccordionContent({ children, className, ...props }: BaseAccordion.Panel
 function PlusIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      {/* Horizontal bar - fades out when accordion opens */}
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -189,6 +244,7 @@ function PlusIcon(props: React.ComponentProps<'svg'>) {
         fill="currentColor"
         className="in-data-panel-open:opacity-0 transition-opacity duration-200 ease-out-expo"
       />
+      {/* Vertical bar - remains visible (becomes horizontal after 90° rotation) */}
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -199,7 +255,8 @@ function PlusIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function ChevronIcon(props: React.ComponentProps<'svg'>) {
+/** Inline replacement for the site's `@iconify-icons/mingcute/down-line` glyph. */
+function ChevronDownIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" {...props}>
       <path d="M1 3.5L5 7.5L9 3.5" stroke="currentColor" strokeWidth="1.5" />

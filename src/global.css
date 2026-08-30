@@ -1,19 +1,376 @@
+/** react-marketing-ui design tokens — ported from the offkeep marketing site's
+ *  globals.css (apps/marketing/app/globals.css). The site is the source of
+ *  truth; keep this file in sync when tokens change there.
+ *
+ *  Consumers: import this file once in your app (or rely on your own token
+ *  definitions — the components only reference these variable names, they
+ *  don't bundle the stylesheet).
+ */
 @import "tailwindcss";
 
-/* ── Theme tokens (light default) ─────────────────────────────── */
-@theme {
-  --color-foreground: #121213;
-  --color-background: #fafafa;
-  --color-surface: #ffffff;
-  --color-muted: #f4f4f5;
-  --color-muted-foreground: #71717a;
-  --color-border: #e4e4e7;
-  --color-border-hi: #d4d4d8;
-  --color-accent-brand: #6366f1;
-  --color-accent-brand-soft: #a5b4fc;
-  --color-destructive: #ef4444;
+@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
-  /* Rainbow gradient tokens — used by RainbowButton */
+/* ── Light theme ─────────────────────────────────────── */
+:root {
+  --neutral-hue: 295;
+  --neutral-chroma: 0.01;
+  --neutral-chroma-low: 0.002;
+
+  --foreground: oklch(0.145 0 0);
+  --foreground-secondary: oklch(0.45 0 0);
+  --foreground-muted: oklch(0.683 0 0);
+
+  --surface: oklch(1 0 0);
+
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hi: rgba(0, 0, 0, 0.22);
+
+  /* Hairline width for the glossy button's edge accents and rim. One token so
+     the whole recipe thickens at once. */
+  --border-default: 0.5px;
+
+  --dot: rgba(0, 0, 0, 0.12);
+  --muted: oklch(0.97 0 0);
+
+  /* Text colour that sits on the primary (inverted) button face. The rainbow
+     CTA fills its face with near-black in light mode and near-white in dark, so
+     the label follows --surface (white ↔ near-black) to stay readable in both. */
+  --primary-foreground: var(--surface);
+
+  /* Brand accent (violet). Same value in both themes — the brand colour doesn't
+     re-tint for dark mode. */
+  --accent-brand: #7c3aed;
+  --accent-brand-hover: #6d28d9;
+  --accent-brand-soft: #818cf8;
+
+  /* Link colour — classic blue, underlined by the global a rule. */
+  --link: #2563eb;
+
+  /* Marker stroke behind highlighted copy — read by <Highlighter>, which paints
+     it opaquely *under* the text, so this one does re-tint for dark mode: a pale
+     violet under dark body text here, a deep violet under near-white text there. */
+  --marker-highlight: #ddd6fe;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+
+  /* ── Glossy button ───────────────────────────────────────
+     Consumed by <GlossyButton>. The recipe is a domed, back-lit key: a face
+     fill, a vertical dome gradient, a bevelled rim, and a cast shadow — all of
+     it one background + one box-shadow list.
+
+     Seven fixed shadow slots. Only their *colours* vary, by theme and by
+     variant, which is what lets one composite serve all eight variants in both
+     themes — and what lets the rest → pressed swap interpolate, since both
+     lists keep the same slots in the same order with the same geometry:
+       [1][2] edge accents — hairline top/bottom, painted over the spotlights
+       [3]    rim          — hairline inside the radius
+       [4][5] spotlights   — the bright bevel; light mode only
+       [6][7] casts        — contact + ambient shadow, outside the box
+
+     The `--btn-*` primitives below are the neutral defaults. A `.glossy-*`
+     class (further down) overrides them per variant; `.dark` overrides them per
+     theme. Nothing overrides the composites. */
+  --btn-face: var(--bg-translucent);
+  --btn-fg: var(--foreground);
+  --btn-edge-top: oklch(0 0 0 / 0.08);
+  --btn-edge-bottom: oklch(0 0 0 / 0.16);
+  --btn-rim: oklch(0 0 0 / 0.16);
+  --btn-spot-top: oklch(1 0 0);
+  --btn-spot-bottom: oklch(1 0 0 / 0.8);
+  --btn-cast-near: oklch(0 0 0 / 0.04);
+  --btn-cast-far: oklch(0 0 0 / 0.02);
+  --btn-dome-top: transparent;
+  --btn-dome-bottom: oklch(0 0 0 / 0.04);
+  --btn-tint-hover: oklch(0 0 0 / 0.04);
+  --btn-tint-active: oklch(0 0 0 / 0.06);
+
+  /* Neutral face. Translucent on purpose — the key picks up whatever it sits on. */
+  --bg-translucent: oklch(100% 0 0 / 0.8);
+
+  /* Solid variant faces. Same value in both themes: these are brand/semantic
+     colours, they don't re-tint for dark mode. */
+  --bg-accent: oklch(52.43% 0.2396 264.41);
+  --bg-destructive: oklch(58.53% 0.2203 26.56);
+  --bg-special: oklch(58.99% 0.2523 294.88);
+  --bg-positive: oklch(54.42% 0.1689 138.23);
+  --bg-attention: oklch(58.01% 0.1819 40.04);
+  --bg-highlight: oklch(59.06% 0.2244 359.16);
+
+  /* Translucent counterparts — not used by the button itself, but the same
+     palette at 16% for soft fills (badges, hover wells, selected rows). */
+  --bg-accent-translucent: oklch(52.43% 0.2396 264.41 / 0.16);
+  --bg-destructive-translucent: oklch(58.53% 0.2203 26.56 / 0.16);
+  --bg-special-translucent: oklch(58.99% 0.2523 294.88 / 0.16);
+  --bg-positive-translucent: oklch(54.42% 0.1689 138.23 / 0.16);
+  --bg-attention-translucent: oklch(58.01% 0.1819 40.04 / 0.16);
+  --bg-highlight-translucent: oklch(59.06% 0.2244 359.16 / 0.16);
+
+  /* Light-mode rims for the solid faces — each hue's own colour taken very
+     dark, so the edge reads as the face in shadow rather than as a black line.
+     Dark mode swaps all six for one translucent white (see `.dark`). */
+  --rim-accent: oklch(35.76% 0.1554 264.55);
+  --rim-destructive: oklch(41.13% 0.1585 26.67);
+  --rim-special: oklch(41.69% 0.1338 294.73);
+  --rim-positive: oklch(37.53% 0.1127 138.13);
+  --rim-attention: oklch(40.72% 0.1266 39.81);
+  --rim-highlight: oklch(41.62% 0.1517 359.08);
+
+  /* Cast-shadow hues, alpha-less. A solid key drops a shadow tinted by its own
+     colour, not a neutral gray. `--btn-cast-alpha` supplies the opacity so the
+     six hues need no per-theme override. */
+  --cast-accent: 23.77% 0.089 264.86;
+  --cast-destructive: 25.68% 0.0861 24.87;
+  --cast-special: 26.38% 0.0965 296.79;
+  --cast-positive: 24.69% 0.0729 135.6;
+  --cast-attention: 25.69% 0.0721 46.08;
+  --cast-highlight: 25.88% 0.0887 356.07;
+  --btn-cast-alpha: 0.12;
+
+  /* Label colours. --fg-on-solid is white in both themes (every solid face is
+     mid-lightness); --fg-on-inverse follows --surface, since the inverse face
+     is --foreground and both flip together. */
+  --fg-on-solid: oklch(1 0 0);
+  --fg-on-inverse: var(--surface);
+
+  /* The composites that assemble these primitives (--shadow-button, its pressed
+     counterpart, and --gradient-button) are declared on `.glossy` itself, not
+     here. `var()` inside a custom property is substituted at the element that
+     *declares* it, so a composite declared here would bake in these neutral
+     values and no variant class on the button could ever change it. Declaring
+     it on `.glossy` moves substitution onto the button, where the variant class
+     has already had its say. (Theme works either way, since `.dark` and `:root`
+     land on the same <html> element.) */
+
+  /* Surface elevation ladder (1-8).
+     Light mode: all surfaces stay neutral (no chroma) — light is the "clean
+       canvas" mode. surfaces 3-8 are pure white; 1-2 step down through pure
+       neutral grays. Shadow alone carries elevation here.
+     Dark mode (see `.dark`): progressive lightness step +
+       neutral-chroma tint + layered inset highlights and outer drops; the
+       brand tint expresses here. */
+  --surface-1: oklch(0.97 0 0);
+  --surface-2: oklch(0.985 0 0);
+  --surface-3: oklch(1 0 0);
+  --surface-4: oklch(1 0 0);
+  --surface-5: oklch(1 0 0);
+  --surface-6: oklch(1 0 0);
+  --surface-7: oklch(1 0 0);
+  --surface-8: oklch(1 0 0);
+
+  /* State overlays — applied via the `bg-surface-hover` / `bg-surface-selected`
+     utilities (mapped in @theme inline below). These are translucent overlays,
+     so they raise the underlying surface by a fixed perceptual delta no matter
+     what level it's sitting on. Light mode uses black-on-white, dark mode uses
+     white-on-black. */
+  --surface-hover: oklch(0 0 0 / 0.04);
+  --surface-selected: oklch(0 0 0 / 0.08);
+
+  /* Single-edge rim color — used by viewport-flush elevated containers
+     (Sheet/Drawer in `default` variant) to paint a 1px inset line ONLY on
+     the inner-facing edge. The full 4-edge rim from --surface-rim-N doesn't
+     read correctly when 3 of 4 edges sit at the viewport boundary. */
+  --surface-rim-color: oklch(0 0 0 / 0);
+
+  /* Light shadow recipe — opacity decreases with blur radius to mimic
+     natural light fall-off (closer to surface = denser, farther = softer
+     ambient). The crisp 1px ring stays at full opacity so elevated
+     containers keep a defined edge; drop layers soften progressively. */
+  --surface-shadow-ring: oklch(0 0 0 / 0.06); /* crisp edge */
+  --surface-shadow-near: oklch(0 0 0 / 0.06); /* 1px blur (contact) */
+  --surface-shadow-mid: oklch(0 0 0 / 0.05); /* 3–6px blur */
+  --surface-shadow-far: oklch(0 0 0 / 0.04); /* 12–24px blur */
+  --surface-shadow-ambient: oklch(0 0 0 / 0.03); /* 48–96px blur */
+
+  --surface-shadow-1: 0 0 0 1px var(--surface-shadow-ring);
+  --surface-shadow-2: 0 0 0 1px var(--surface-shadow-ring), 0 1px 1px -0.5px var(--surface-shadow-near);
+  --surface-shadow-3:
+    0 0 0 1px var(--surface-shadow-ring), 0 1px 1px -0.5px var(--surface-shadow-near), 0 3px 3px -1.5px var(--surface-shadow-mid);
+  --surface-shadow-4:
+    0 0 0 1px var(--surface-shadow-ring),
+    0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid);
+  --surface-shadow-5:
+    0 0 0 1px var(--surface-shadow-ring),
+    0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far);
+  --surface-shadow-6:
+    0 0 0 1px var(--surface-shadow-ring),
+    0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far),
+    0 24px 24px -12px var(--surface-shadow-far);
+  --surface-shadow-7:
+    0 0 0 1px var(--surface-shadow-ring),
+    0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far),
+    0 24px 24px -12px var(--surface-shadow-far),
+    0 48px 48px -24px var(--surface-shadow-ambient);
+  --surface-shadow-8:
+    0 0 0 1px var(--surface-shadow-ring),
+    0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far),
+    0 24px 24px -12px var(--surface-shadow-far),
+    0 48px 48px -24px var(--surface-shadow-ambient),
+    0 96px 96px -48px var(--surface-shadow-ambient);
+
+  /* Rim overlay (inset parts of the shadow recipe).
+     Applied via a pseudo-element on elevated containers so the rim stays
+     visible above opaque children (sticky headers, group labels, etc).
+     Light mode uses outer rings only — no rim needed, so these are no-ops. */
+  --surface-rim-1: 0 0 transparent;
+  --surface-rim-2: 0 0 transparent;
+  --surface-rim-3: 0 0 transparent;
+  --surface-rim-4: 0 0 transparent;
+  --surface-rim-5: 0 0 transparent;
+  --surface-rim-6: 0 0 transparent;
+  --surface-rim-7: 0 0 transparent;
+  --surface-rim-8: 0 0 transparent;
+}
+
+/* ── Dark theme ──────────────────────────────────────── */
+.dark {
+  --surface: oklch(0.239 var(--neutral-chroma) var(--neutral-hue));
+
+  --foreground: oklch(0.985 0 0);
+  --foreground-secondary: oklch(0.94 var(--neutral-chroma) var(--neutral-hue));
+  --foreground-muted: oklch(0.73 var(--neutral-chroma) var(--neutral-hue));
+
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hi: rgba(255, 255, 255, 0.22);
+
+  --dot: rgba(255, 255, 255, 0.08);
+  --muted: oklch(0.269 0 0);
+  --marker-highlight: #4c1d95;
+  --link: #60a5fa;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+
+  /* ── Glossy button ───────────────────────────────────────
+     Same seven slots, colours flipped: the edges go white-translucent (a
+     back-lit key rather than white paint) and the neutral face becomes a warm
+     translucent gray. The spotlight slots have nothing to add over a dark face,
+     so they go transparent — the geometry stays so the lists still interpolate.
+     Casts get roughly double the alpha, since a shadow has to work harder to
+     read against a dark backdrop. */
+  --btn-edge-top: oklch(1 0 0 / 0.16);
+  --btn-edge-bottom: oklch(1 0 0 / 0.04);
+  --btn-rim: oklch(1 0 0 / 0.16);
+  --btn-spot-top: transparent;
+  --btn-spot-bottom: transparent;
+  --btn-cast-near: oklch(0 0 0 / 0.12);
+  --btn-cast-far: oklch(0 0 0 / 0.12);
+  --btn-dome-top: oklch(1 0 0 / 0.04);
+  --btn-dome-bottom: transparent;
+  --btn-tint-hover: oklch(1 0 0 / 0.08);
+  --btn-tint-active: oklch(1 0 0 / 0.12);
+  --btn-cast-alpha: 0.24;
+
+  /* oklch(56.74% .009 106.68 / .16) — a warm gray that picks up the backdrop. */
+  --bg-translucent: oklch(0.5674 0.009 106.68 / 0.16);
+
+  /* Surface ladder — progressive lightness with brand-hue tint */
+  --surface-1: oklch(0.205 var(--neutral-chroma) var(--neutral-hue));
+  --surface-2: oklch(0.235 var(--neutral-chroma) var(--neutral-hue));
+  --surface-3: oklch(0.264 var(--neutral-chroma) var(--neutral-hue));
+  --surface-4: oklch(0.293 var(--neutral-chroma) var(--neutral-hue));
+  --surface-5: oklch(0.321 var(--neutral-chroma) var(--neutral-hue));
+  --surface-6: oklch(0.348 var(--neutral-chroma) var(--neutral-hue));
+  --surface-7: oklch(0.375 var(--neutral-chroma) var(--neutral-hue));
+  --surface-8: oklch(0.402 var(--neutral-chroma) var(--neutral-hue));
+
+  /* State overlays flip from black-on-white to white-on-black */
+  --surface-hover: oklch(1 0 0 / 0.04);
+  --surface-selected: oklch(1 0 0 / 0.08);
+
+  /* Single-edge rim — visible in dark, transparent in light (above) */
+  --surface-rim-color: oklch(1 0 0 / 0.04);
+
+  /* Dark-only tokens used by the shadow/rim recipe below */
+  --surface-hi-base: oklch(1 0 0 / 0.01);
+  --surface-hi-mid: oklch(1 0 0 / 0.02);
+  --surface-hi-high: oklch(1 0 0 / 0.04);
+  --surface-hi-peak: oklch(1 0 0 / 0.06);
+  --surface-ring-base: oklch(1 0 0 / 0.02);
+  --surface-ring-mid: oklch(1 0 0 / 0.04);
+  --surface-ring-high: oklch(1 0 0 / 0.06);
+  /* Same per-layer alpha tokens as light mode (--surface-shadow-near/mid/far/
+     ambient) — overridden here with darker values so the same recipe shape
+     works in both themes. Tighter range than light (0.18 → 0.12 vs
+     0.06 → 0.03) so the wider layers don't fade to invisibility against the
+     dark substrate. --surface-shadow-ring is not redefined: dark mode sets
+     the ring inline per level since it grows with elevation. */
+  --surface-shadow-near: oklch(0 0 0 / 0.18); /* 1px blur (contact) */
+  --surface-shadow-mid: oklch(0 0 0 / 0.16); /* 3–6px blur */
+  --surface-shadow-far: oklch(0 0 0 / 0.14); /* 12–24px blur */
+  --surface-shadow-ambient: oklch(0 0 0 / 0.12); /* 48–96px blur */
+
+  /* Drop-shadow + outer-ring portion of the dark recipe (no insets here). */
+  --surface-shadow-1: 0 0 transparent;
+  --surface-shadow-2: 0 1px 1px -0.5px var(--surface-shadow-near);
+  --surface-shadow-3:
+    0 0 0 1px oklch(0 0 0 / 0.12), 0 1px 1px -0.5px var(--surface-shadow-near), 0 3px 3px -1.5px var(--surface-shadow-mid);
+  --surface-shadow-4:
+    0 0 0 1px oklch(0 0 0 / 0.14), 0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid);
+  --surface-shadow-5:
+    0 0 0 1px oklch(0 0 0 / 0.16), 0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far);
+  --surface-shadow-6:
+    0 0 0 1px oklch(0 0 0 / 0.18), 0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far),
+    0 24px 24px -12px var(--surface-shadow-far);
+  --surface-shadow-7:
+    0 0 0 1px oklch(0 0 0 / 0.2), 0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far),
+    0 24px 24px -12px var(--surface-shadow-far),
+    0 48px 48px -24px var(--surface-shadow-ambient);
+  --surface-shadow-8:
+    0 0 0 1px oklch(0 0 0 / 0.22), 0 1px 1px -0.5px var(--surface-shadow-near),
+    0 3px 3px -1.5px var(--surface-shadow-mid),
+    0 6px 6px -3px var(--surface-shadow-mid),
+    0 12px 12px -6px var(--surface-shadow-far),
+    0 24px 24px -12px var(--surface-shadow-far),
+    0 48px 48px -24px var(--surface-shadow-ambient),
+    0 96px 96px -48px var(--surface-shadow-ambient);
+
+  /* Inset portion of the dark recipe — painted via a pseudo-element so
+     it always sits above opaque children (sticky labels, headers, etc). */
+  --surface-rim-1: inset 0 0 0 1px var(--surface-ring-base);
+  --surface-rim-2: inset 0 1px 0 0 var(--surface-hi-base), inset 0 0 0 1px var(--surface-ring-base);
+  --surface-rim-3: inset 0 1px 0 0 var(--surface-hi-mid), inset 0 0 0 1px var(--surface-ring-base);
+  --surface-rim-4: inset 0 1px 0 0 var(--surface-hi-mid), inset 0 0 0 1px var(--surface-ring-mid);
+  --surface-rim-5: inset 0 1px 0 0 var(--surface-hi-high), inset 0 0 0 1px var(--surface-ring-mid);
+  --surface-rim-6: inset 0 1px 0 0 var(--surface-hi-high), inset 0 0 0 1px var(--surface-ring-high);
+  --surface-rim-7: inset 0 1px 0 0 var(--surface-hi-peak), inset 0 0 0 1px var(--surface-ring-high);
+  --surface-rim-8: inset 0 1px 0 0 var(--surface-hi-peak), inset 0 0 0 1px var(--surface-ring-high);
+}
+
+@theme {
+  /* Site breakpoints — `xs` and the non-default `md` (50rem). */
+  --breakpoint-xs: 30rem;
+  --breakpoint-md: 50rem;
+
+  /* rn-motion-ui geometry token the buttons reference (6px radius). */
+  --radius-interactive: 6px;
+
+  /* Lib-native rainbow button palette (static — same in both themes). */
   --color-rainbow-1: oklch(70% 0.25 30);
   --color-rainbow-2: oklch(70% 0.25 120);
   --color-rainbow-3: oklch(70% 0.25 210);
@@ -21,13 +378,260 @@
   --color-rainbow-5: oklch(70% 0.25 30);
 }
 
-/* Dark theme overrides */
-.dark {
-  --color-foreground: #fafafa;
-  --color-background: #0a0a0a;
-  --color-surface: #121213;
-  --color-muted: #27272a;
-  --color-muted-foreground: #a1a1aa;
-  --color-border: #27272a;
-  --color-border-hi: #3f3f46;
+@theme inline {
+  /* Surface elevation utilities — generates bg-surface-{1..8} and shadow-surface-{1..8}. */
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-surface-5: var(--surface-5);
+  --color-surface-6: var(--surface-6);
+  --color-surface-7: var(--surface-7);
+  --color-surface-8: var(--surface-8);
+
+  /* Interactive overlay utilities — generates bg-surface-hover /
+     bg-surface-selected. Translucent overlays that composite on whatever
+     surface level they sit on. */
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-selected: var(--surface-selected);
+
+  /* ── shadcn-convention token aliases ─────────────────────
+     Components use shadcn's semantic color names (bg-background, text-foreground,
+     text-muted-foreground, outline-ring, fill-border, …). Those utilities only
+     emit CSS when the matching --color-* theme token exists — otherwise
+     Tailwind v4 drops them silently. Map each to this library's own custom
+     variables so there's a single source of truth and both themes stay in
+     sync. */
+  --color-background: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--foreground-secondary);
+  --color-border: var(--border);
+  --color-border-hi: var(--border-hi);
+  --color-ring: var(--foreground-muted);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* ── Semantic colour aliases ─────────────────────────────────────────
+     Colours the components use directly (text-danger / border-danger in
+     Input, border-destructive in RainbowButton), mapped onto the
+     --bg-* faces so there's one source of truth. */
+  --color-danger: var(--bg-destructive);
+  --color-destructive: var(--bg-destructive);
+
+  /* Brand accent aliases — same values in both themes. */
+  --color-accent-brand: var(--accent-brand);
+  --color-accent-brand-hover: var(--accent-brand-hover);
+  --color-accent-brand-soft: var(--accent-brand-soft);
+
+  /* Elevated surface shadows — the composite (rim + drop) the surface
+     components use via `shadow-elevated-N`. */
+  --shadow-elevated-1: var(--surface-rim-1), var(--shadow-surface-1);
+  --shadow-elevated-2: var(--surface-rim-2), var(--shadow-surface-2);
+  --shadow-elevated-3: var(--surface-rim-3), var(--shadow-surface-3);
+  --shadow-elevated-4: var(--surface-rim-4), var(--shadow-surface-4);
+  --shadow-elevated-5: var(--surface-rim-5), var(--shadow-surface-5);
+  --shadow-elevated-6: var(--surface-rim-6), var(--shadow-surface-6);
+  --shadow-elevated-7: var(--surface-rim-7), var(--shadow-surface-7);
+  --shadow-elevated-8: var(--surface-rim-8), var(--shadow-surface-8);
+
+  /* Display headings use the same family as the body (no separate display font
+     is loaded); aliasing keeps the `font-display` utility from silently falling
+     back to the browser default. */
+  --font-display: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+
+  /* Numeric readouts (prices, storage sizes, slider values) keep the body face.
+     Pair the `font-numeric` utility with `tabular-nums` so figures don't jitter
+     as they animate. */
+  --font-numeric: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+
+  --shadow-surface-1: var(--surface-shadow-1);
+  --shadow-surface-2: var(--surface-shadow-2);
+  --shadow-surface-3: var(--surface-shadow-3);
+  --shadow-surface-4: var(--surface-shadow-4);
+  --shadow-surface-5: var(--surface-shadow-5);
+  --shadow-surface-6: var(--surface-shadow-6);
+  --shadow-surface-7: var(--surface-shadow-7);
+  --shadow-surface-8: var(--surface-shadow-8);
+
+  --shadow-surface-rim-1: var(--surface-rim-1);
+  --shadow-surface-rim-2: var(--surface-rim-2);
+  --shadow-surface-rim-3: var(--surface-rim-3);
+  --shadow-surface-rim-4: var(--surface-rim-4);
+  --shadow-surface-rim-5: var(--surface-rim-5);
+  --shadow-surface-rim-6: var(--surface-rim-6);
+  --shadow-surface-rim-7: var(--surface-rim-7);
+  --shadow-surface-rim-8: var(--surface-rim-8);
+
+  /* Animated shine beam — used by <ShineBorder> to sweep a gradient band around
+     a masked border ring. `--duration` is set inline per instance so the same
+     `animate-shine` utility drives any speed. */
+  --animate-shine: shine var(--duration) infinite linear;
+
+  @keyframes shine {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    to {
+      background-position: 0% 0%;
+    }
+  }
+
+  /* Animated rainbow sweep — drives <RainbowButton>. `--speed` defaults to 2s
+     and can be overridden per instance. The background slides across its 200%
+     width so the multi-stop gradient (and the blurred `before:` glow) scroll. */
+  --animate-rainbow: rainbow var(--speed, 2s) infinite linear;
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 200%;
+    }
+  }
+}
+
+/* ── Glossy button ──────────────────────────────────── */
+/* The composites are declared here, on the key itself, rather than on `:root`.
+   A var() inside a custom property is substituted at the element that
+   *declares* the property, not where it's finally used — so on `:root` these
+   would bake in the root's --btn-* values and no variant class could ever
+   change them. Declared on the key they resolve against whatever the variant
+   and theme classes have set by the time the cascade reaches it. */
+.glossy {
+  --gradient-button: linear-gradient(to bottom, var(--btn-dome-top), var(--btn-dome-bottom));
+
+  /* Slots [1]-[5] are insets, painted last-to-first, so the edge accents land
+     *over* the spotlights and the composite reads as a hairline rather than as
+     flat white. [6][7] are the outer casts. */
+  --shadow-button:
+    inset 0 var(--border-default) 0 0 var(--btn-edge-top),
+    inset 0 calc(-1 * var(--border-default)) 0 0 var(--btn-edge-bottom),
+    inset 0 0 0 var(--border-default) var(--btn-rim), inset 0 1px 0 0 var(--btn-spot-top),
+    inset 0 -1px 0 0 var(--btn-spot-bottom), 0 2px 2px -1px var(--btn-cast-near),
+    0 4px 4px -2px var(--btn-cast-far);
+
+  /* Pressed — the key sinks into the page: everything but the rim goes
+     transparent. Same seven slots, same order, same geometry, so the swap
+     interpolates instead of snapping. */
+  --shadow-button-pressed:
+    inset 0 var(--border-default) 0 0 transparent, inset 0 calc(-1 * var(--border-default)) 0 0 transparent,
+    inset 0 0 0 var(--border-default) var(--btn-rim), inset 0 1px 0 0 transparent, inset 0 -1px 0 0 transparent,
+    0 2px 2px -1px transparent, 0 4px 4px -2px transparent;
+}
+
+/* Solid faces, shared. In light mode a saturated face is dark enough to carry a
+   white spotlight, but faintly — 16%/8% rather than the neutral key's opaque
+   white. In dark mode the spotlights drop out entirely and the rim becomes one
+   translucent white for all six hues, so only the face and cast stay per-hue.
+   The dome and the tints are deliberately left to the theme: both read the same
+   way over a saturated face as over the neutral one. */
+:is(.glossy-accent, .glossy-destructive, .glossy-special, .glossy-positive, .glossy-attention, .glossy-highlight) {
+  --btn-fg: var(--fg-on-solid);
+  --btn-spot-top: oklch(1 0 0 / 0.16);
+  --btn-spot-bottom: oklch(1 0 0 / 0.08);
+}
+
+.dark :is(.glossy-accent, .glossy-destructive, .glossy-special, .glossy-positive, .glossy-attention, .glossy-highlight) {
+  --btn-edge-bottom: oklch(1 0 0 / 0.08);
+  --btn-rim: oklch(1 0 0 / 0.32);
+  --btn-spot-top: transparent;
+  --btn-spot-bottom: transparent;
+}
+
+/* Per-hue: face, rim, cast. The rim only applies in light — the rule above is
+   more specific, so in dark all six share one white rim. The cast is a dark,
+   desaturated cousin of the face rather than a neutral gray, which is what
+   makes the drop read as belonging to the key. */
+.glossy-accent {
+  --btn-face: var(--bg-accent);
+  --btn-rim: var(--rim-accent);
+  --btn-cast-near: oklch(var(--cast-accent) / var(--btn-cast-alpha));
+  --btn-cast-far: oklch(var(--cast-accent) / var(--btn-cast-alpha));
+}
+
+.glossy-destructive {
+  --btn-face: var(--bg-destructive);
+  --btn-rim: var(--rim-destructive);
+  --btn-cast-near: oklch(var(--cast-destructive) / var(--btn-cast-alpha));
+  --btn-cast-far: oklch(var(--cast-destructive) / var(--btn-cast-alpha));
+}
+
+.glossy-special {
+  --btn-face: var(--bg-special);
+  --btn-rim: var(--rim-special);
+  --btn-cast-near: oklch(var(--cast-special) / var(--btn-cast-alpha));
+  --btn-cast-far: oklch(var(--cast-special) / var(--btn-cast-alpha));
+}
+
+.glossy-positive {
+  --btn-face: var(--bg-positive);
+  --btn-rim: var(--rim-positive);
+  --btn-cast-near: oklch(var(--cast-positive) / var(--btn-cast-alpha));
+  --btn-cast-far: oklch(var(--cast-positive) / var(--btn-cast-alpha));
+}
+
+.glossy-attention {
+  --btn-face: var(--bg-attention);
+  --btn-rim: var(--rim-attention);
+  --btn-cast-near: oklch(var(--cast-attention) / var(--btn-cast-alpha));
+  --btn-cast-far: oklch(var(--cast-attention) / var(--btn-cast-alpha));
+}
+
+.glossy-highlight {
+  --btn-face: var(--bg-highlight);
+  --btn-rim: var(--rim-highlight);
+  --btn-cast-near: oklch(var(--cast-highlight) / var(--btn-cast-alpha));
+  --btn-cast-far: oklch(var(--cast-highlight) / var(--btn-cast-alpha));
+}
+
+/* Inverse — the face is the foreground colour, so it flips with the theme on
+   its own: near-black on a light page, near-white on a dark one. Both the rim
+   and the dome go opaque here; it's the one variant meant to read as a slab
+   rather than as glass. */
+.glossy-inverse {
+  --btn-face: var(--foreground);
+  --btn-fg: var(--fg-on-inverse);
+  --btn-rim: oklch(0 0 0);
+  --btn-spot-top: oklch(1 0 0 / 0.24);
+  --btn-spot-bottom: oklch(1 0 0 / 0.16);
+  --btn-cast-near: oklch(0 0 0 / 0.12);
+  --btn-cast-far: oklch(0 0 0 / 0.12);
+  --btn-dome-top: oklch(0 0 0 / 0);
+  --btn-dome-bottom: oklch(0 0 0 / 0.88);
+  --btn-tint-hover: oklch(1 0 0 / 0.12);
+  --btn-tint-active: oklch(1 0 0 / 0.2);
+}
+
+.dark .glossy-inverse {
+  --btn-rim: oklch(1 0 0);
+  /* Re-stated because `.glossy-inverse` declares them on the button itself, and
+     a direct declaration beats the value inherited from `.dark` on <html>. */
+  --btn-spot-top: transparent;
+  --btn-spot-bottom: transparent;
+  /* The face is already near-white, so the dome only needs a hint of weight. */
+  --btn-dome-bottom: oklch(0 0 0 / 0.08);
+  --btn-tint-hover: oklch(0 0 0 / 0.08);
+  --btn-tint-active: oklch(0 0 0 / 0.14);
+}
+
+/* ── FAQ accordion ──────────────────────────────────── */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ── Shimmer ────────────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

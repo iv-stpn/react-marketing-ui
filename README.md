@@ -1,4 +1,4 @@
-# react-landing-ui
+# react-marketing-ui
 
 Reusable landing-page UI components for React — animated text reveals, shader effects, magnetic tabs, and scroll-triggered entrances.
 
@@ -7,7 +7,7 @@ Ported from the [offkeep](https://offkeep.com) marketing site into a standalone 
 ## Install
 
 ```bash
-bun add react-landing-ui
+bun add react-marketing-ui
 ```
 
 ## Components

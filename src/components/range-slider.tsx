@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import type { ChangeEvent } from "react";
-import { useCallback } from "react";
+import type { ChangeEvent } from 'react';
+import { useCallback } from 'react';
 
 export type Tick = { value: number; label: string };
 
@@ -17,14 +17,7 @@ export type RangeSliderProps = {
 
 /** Index of the grid step nearest `value`, so an off-grid value still resolves. */
 function nearestIndex(steps: number[], value: number) {
-  return steps.reduce(
-    (best, s, i) =>
-      Math.abs(s - value) <
-      Math.abs(steps[best]! - value)
-        ? i
-        : best,
-    0,
-  );
+  return steps.reduce((best, s, i) => (Math.abs(s - value) < Math.abs(steps[best]! - value) ? i : best), 0);
 }
 
 /**
@@ -32,34 +25,22 @@ function nearestIndex(steps: number[], value: number) {
  * so a grid whose span isn't a whole multiple of its increment can still reach
  * its stated ceiling.
  */
-export function RangeSlider({
-  label,
-  value,
-  steps,
-  ticks,
-  valueLabel,
-  onChange,
-}: RangeSliderProps) {
+export function RangeSlider({ label, value, steps, ticks, valueLabel, onChange }: RangeSliderProps) {
   const min = steps[0]!;
   const max = steps.at(-1) ?? min;
   const pct = ((value - min) / (max - min)) * 100;
   const index = nearestIndex(steps, value);
 
   const handleChange = useCallback(
-    (event_: ChangeEvent<HTMLInputElement>) =>
-      onChange(steps[Number(event_.target.value)]!),
+    (event_: ChangeEvent<HTMLInputElement>) => onChange(steps[Number(event_.target.value)]!),
     [onChange, steps],
   );
 
   return (
     <div className="w-full">
       <div className="mb-5 flex items-baseline justify-between gap-2">
-        <p className="font-semibold text-[15px] text-(--color-foreground)">
-          {label}
-        </p>
-        <p className="font-bold font-numeric text-[20px] text-(--color-foreground) tabular-nums">
-          {valueLabel}
-        </p>
+        <p className="font-semibold text-[15px] text-(--color-foreground)">{label}</p>
+        <p className="font-bold font-numeric text-[20px] text-(--color-foreground) tabular-nums">{valueLabel}</p>
       </div>
 
       <div className="relative" style={{ height: 20 }}>
@@ -85,19 +66,17 @@ export function RangeSlider({
             left: `${pct}%`,
             width: 16,
             height: 16,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
           }}
         />
       </div>
 
       <div className="relative mt-2" style={{ height: 16 }}>
         {ticks.map((tick, i) => {
-          const tp =
-            ((tick.value - min) / (max - min)) * 100;
+          const tp = ((tick.value - min) / (max - min)) * 100;
           const isFirst = i === 0;
           const isLast = i === ticks.length - 1;
-          let left: number | string | undefined =
-            `${tp}%`;
+          let left: number | string | undefined = `${tp}%`;
           if (isFirst) left = 0;
           else if (isLast) left = undefined;
           return (
@@ -107,10 +86,7 @@ export function RangeSlider({
               style={{
                 left,
                 right: isLast ? 0 : undefined,
-                transform:
-                  isFirst || isLast
-                    ? undefined
-                    : "translateX(-50%)",
+                transform: isFirst || isLast ? undefined : 'translateX(-50%)',
               }}
             >
               {tick.label}

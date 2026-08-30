@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "iv-stpn/react-landing-ui" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "iv-stpn/react-marketing-ui" }],
   "commit": false,
   "fixed": [],
   "linked": [],

@@ -1,21 +1,42 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
+import { type SurfaceLevel, solidSurface } from '../lib/surface.js';
 import { cn } from '../lib/utils.js';
 
-const cardVariants = cva('text-(--color-foreground) flex flex-col', {
+const cardVariants = cva('text-foreground flex flex-col', {
   variants: {
     variant: {
-      default: 'gap-6 rounded-2xl border border-(--color-border) bg-(--color-surface) py-6',
-      muted: 'gap-6 rounded-2xl bg-(--color-muted) py-6',
+      default: 'gap-6 rounded-2xl py-6',
+      inset: 'rounded-2xl p-1',
     },
   },
-  defaultVariants: { variant: 'default' },
+  defaultVariants: {
+    variant: 'default',
+  },
 });
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
+interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {
+  level?: SurfaceLevel;
+  shadowLevel?: SurfaceLevel;
+}
 
-function Card({ className, variant = 'default', ...props }: CardProps) {
-  return <div data-slot="card" data-variant={variant} className={cn(cardVariants({ variant }), className)} {...props} />;
+function Card({ className, variant = 'default', level = 3, shadowLevel = 1, ...props }: CardProps) {
+  return (
+    <div
+      data-slot="card"
+      data-variant={variant}
+      data-level={level}
+      className={cn(
+        cardVariants({ variant }),
+        solidSurface(level, shadowLevel),
+        // bg-muted overrides solidSurface's bg, making the outer a gray frame
+        // while keeping its shadow, rim, and --popup-surface.
+        variant === 'inset' && 'bg-muted',
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
@@ -23,7 +44,9 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-header"
       className={cn(
-        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 has-[[data-slot=card-action]]:grid-cols-[1fr_auto] px-6',
+        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start has-[[data-slot=card-action]]:grid-cols-[1fr_auto] [.border-b]:pb-6',
+        '[[data-variant=default]>_&]:gap-1.5 [[data-variant=default]>_&]:px-6',
+        '[[data-variant=inset]>_&]:px-3 [[data-variant=inset]>_&]:py-2 [[data-variant=inset]>_&]:pt-1',
         className,
       )}
       {...props}
@@ -32,11 +55,13 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="card-title" className={cn('font-semibold leading-none', className)} {...props} />;
+  return (
+    <div data-slot="card-title" className={cn('font-semibold [[data-variant=default]_&]:leading-none', className)} {...props} />
+  );
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="card-description" className={cn('text-(--color-muted-foreground) text-sm', className)} {...props} />;
+  return <div data-slot="card-description" className={cn('text-muted-foreground text-sm', className)} {...props} />;
 }
 
 function CardAction({ className, ...props }: React.ComponentProps<'div'>) {
@@ -50,11 +75,33 @@ function CardAction({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="card-content" className={cn('px-6', className)} {...props} />;
+  return (
+    <div
+      data-slot="card-content"
+      className={cn(
+        '[[data-variant=default]>_&]:px-6',
+        '[[data-variant=inset]>_&]:flex [[data-variant=inset]>_&]:flex-1 [[data-variant=inset]>_&]:flex-col [[data-variant=inset]>_&]:rounded-lg [[data-variant=inset]>_&]:bg-surface-3 [[data-variant=inset]>_&]:p-4 [[data-variant=inset]>_&]:shadow-elevated-3 [[data-variant=inset]>_&]:[--popup-surface:var(--surface-3)]',
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="card-footer" className={cn('flex items-center px-6', className)} {...props} />;
+  return (
+    <div
+      data-slot="card-footer"
+      className={cn(
+        'flex items-center [.border-t]:pt-6',
+        '[[data-variant=default]>_&]:px-6',
+        '[[data-variant=inset]>_&]:mt-auto [[data-variant=inset]>_&]:justify-end [[data-variant=inset]>_&]:pt-4',
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
+export type { CardProps };
 export { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle };

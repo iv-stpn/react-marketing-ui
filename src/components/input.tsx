@@ -1,40 +1,35 @@
-"use client";
+'use client';
 
-import {
-  type InputHTMLAttributes,
-  type ReactNode,
-  useId,
-  useState,
-} from "react";
-import { cn } from "../lib/utils.js";
+import { type InputHTMLAttributes, type ReactNode, useId, useState } from 'react';
+import { cn } from '../lib/utils.js';
 
 const FIELD_BORDER: Record<string, string> = {
-  idle: "border-(--color-border)",
-  focused: "border-(--color-foreground)/40",
-  error: "border-(--color-destructive)",
+  idle: 'border-(--color-border)',
+  focused: 'border-(--color-foreground)/40',
+  error: 'border-(--color-destructive)',
 };
 
 const FIELD_HEIGHT: Record<string, string> = {
-  sm: "h-8",
-  md: "h-9",
-  lg: "h-11",
+  sm: 'h-8',
+  md: 'h-9',
+  lg: 'h-11',
 };
 
 const FIELD_SHAPE: Record<string, string> = {
-  rounded: "rounded-lg",
-  pill: "rounded-full",
+  rounded: 'rounded-lg',
+  pill: 'rounded-full',
 };
 
 const INPUT_SIZE: Record<string, string> = {
-  sm: "text-xs",
-  md: "text-sm",
-  lg: "text-base",
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base',
 };
 
 const INPUT_PAD: Record<string, string> = {
-  sm: "px-2.5",
-  md: "px-3",
-  lg: "px-3.5",
+  sm: 'px-2.5',
+  md: 'px-3',
+  lg: 'px-3.5',
 };
 
 export type InputProps = {
@@ -43,15 +38,12 @@ export type InputProps = {
   hint?: string;
   leftAdornment?: ReactNode;
   rightAdornment?: ReactNode;
-  size?: "sm" | "md" | "lg";
-  shape?: "rounded" | "pill";
+  size?: 'sm' | 'md' | 'lg';
+  shape?: 'rounded' | 'pill';
   className?: string;
   inputClassName?: string;
-  inputType?: InputHTMLAttributes<HTMLInputElement>["type"];
-} & Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  "size" | "type"
->;
+  inputType?: InputHTMLAttributes<HTMLInputElement>['type'];
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'>;
 
 export function Input({
   label,
@@ -59,11 +51,11 @@ export function Input({
   hint,
   leftAdornment,
   rightAdornment,
-  size = "md",
-  shape = "rounded",
+  size = 'md',
+  shape = 'rounded',
   className,
   inputClassName,
-  inputType = "text",
+  inputType = 'text',
   id: idProp,
   onFocus,
   onBlur,
@@ -75,34 +67,26 @@ export function Input({
   const id = idProp ?? autoId;
   const [focused, setFocused] = useState(false);
   const hasError = Boolean(error);
-  const errorMessage =
-    typeof error === "string" ? error : null;
-  const state = hasError
-    ? "error"
-    : focused
-      ? "focused"
-      : "idle";
+  const errorMessage = typeof error === 'string' ? error : null;
+  const state = hasError ? 'error' : focused ? 'focused' : 'idle';
   const hasLeft = Boolean(leftAdornment);
   const hasRight = Boolean(rightAdornment);
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
+    <div className={cn('flex flex-col gap-1.5', className)}>
       {label ? (
-        <label
-          htmlFor={id}
-          className="px-1 font-medium text-(--color-foreground) text-sm"
-        >
+        <label htmlFor={id} className="px-1 font-medium text-(--color-foreground) text-sm">
           {label}
         </label>
       ) : null}
 
       <div
         className={cn(
-          "relative flex flex-row items-center overflow-hidden border",
+          'relative flex flex-row items-center overflow-hidden border',
           FIELD_BORDER[state],
           FIELD_HEIGHT[size],
           FIELD_SHAPE[shape],
-          disabled && "opacity-60",
+          disabled && 'opacity-60',
         )}
       >
         {hasLeft ? (
@@ -115,6 +99,7 @@ export function Input({
           id={id}
           type={inputType}
           disabled={disabled}
+          // biome-ignore lint/a11y/noAutofocus: forwarded HTML attribute — callers decide whether to autofocus
           autoFocus={autoFocus}
           onFocus={(event_) => {
             setFocused(true);
@@ -125,14 +110,10 @@ export function Input({
             onBlur?.(event_);
           }}
           className={cn(
-            "h-full min-w-0 flex-1 bg-transparent text-(--color-foreground) outline-none",
+            'h-full min-w-0 flex-1 bg-transparent text-(--color-foreground) outline-none',
             INPUT_SIZE[size],
-            hasLeft
-              ? "pl-10"
-              : INPUT_PAD[size],
-            hasRight
-              ? "pr-10"
-              : INPUT_PAD[size],
+            hasLeft ? 'pl-10' : INPUT_PAD[size],
+            hasRight ? 'pr-10' : INPUT_PAD[size],
             inputClassName,
           )}
           {...inputProps}
@@ -146,16 +127,11 @@ export function Input({
       </div>
 
       {errorMessage ? (
-        <p
-          role="alert"
-          className="px-1 text-(--color-destructive) text-xs"
-        >
+        <p role="alert" className="px-1 text-(--color-destructive) text-xs">
           {errorMessage}
         </p>
       ) : hint ? (
-        <p className="px-1 text-(--color-muted-foreground) text-xs">
-          {hint}
-        </p>
+        <p className="px-1 text-(--color-muted-foreground) text-xs">{hint}</p>
       ) : null}
     </div>
   );
