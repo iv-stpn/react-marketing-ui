@@ -1,6 +1,6 @@
 {
   "name": "react-marketing-ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Reusable landing & marketing page UI components for React — animated text reveals, shader effects, magnetic tabs, and scroll-triggered entrances.",
   "keywords": [
     "react",
