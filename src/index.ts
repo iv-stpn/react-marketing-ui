@@ -24,6 +24,7 @@ export {
   SplitArrow,
   TurnDown,
 } from './components/flowchart-parts.js';
+export { default as FooterGlow } from './components/footer-glow.js';
 export type { GlossyButtonProps } from './components/glossy-button.js';
 export { GlossyButton, glossyButtonVariants } from './components/glossy-button.js';
 export { default as Grainient } from './components/grainient.js';

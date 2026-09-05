@@ -16,6 +16,7 @@ export default defineConfig({
     'animated-beam': 'src/components/animated-beam.tsx',
     'glossy-button': 'src/components/glossy-button.tsx',
     'feature-card': 'src/components/feature-card.tsx',
+    'footer-glow': 'src/components/footer-glow.tsx',
     'rolling-badge': 'src/components/rolling-badge.tsx',
     'elevated-input': 'src/components/elevated-input.tsx',
     input: 'src/components/input.tsx',

@@ -168,6 +168,16 @@
         "default": "./dist/feature-card.js"
       }
     },
+    "./footer-glow": {
+      "import": {
+        "types": "./dist/footer-glow.d.ts",
+        "default": "./dist/footer-glow.mjs"
+      },
+      "require": {
+        "types": "./dist/footer-glow.d.cts",
+        "default": "./dist/footer-glow.js"
+      }
+    },
     "./rolling-badge": {
       "import": {
         "types": "./dist/rolling-badge.d.ts",
