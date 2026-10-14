@@ -368,7 +368,8 @@
         "default": "./dist/lib/ease.js"
       }
     },
-    "./grainient.css": "./dist/grainient.css"
+    "./grainient.css": "./dist/grainient.css",
+    "./dia-text-reveal.css": "./dist/dia-text-reveal.css"
   },
   "files": [
     "dist",
