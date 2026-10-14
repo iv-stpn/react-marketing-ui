@@ -1,5 +1,11 @@
 # react-marketing-ui
 
+## 0.0.7
+
+### Patch Changes
+
+- [#4](https://github.com/iv-stpn/react-marketing-ui/pull/4) [`884ad7e`](https://github.com/iv-stpn/react-marketing-ui/commit/884ad7e97b0162632f61b2fde0bfca22b3f59a6f) Thanks [@iv-stpn](https://github.com/iv-stpn)! - Keep DiaTextReveal's initial client styles consistent with server rendering, then reveal static text after hydration for reduced-motion users. Respond to motion preference changes and cancel pending repeats when motion is reduced.
+
 ## 0.0.6
 
 ### Patch Changes
