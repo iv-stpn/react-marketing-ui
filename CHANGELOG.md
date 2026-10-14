@@ -1,5 +1,11 @@
 # react-marketing-ui
 
+## 0.0.6
+
+### Patch Changes
+
+- [#2](https://github.com/iv-stpn/react-marketing-ui/pull/2) [`01230d2`](https://github.com/iv-stpn/react-marketing-ui/commit/01230d2d016267752f64c211e4e9be8b83782de4) Thanks [@iv-stpn](https://github.com/iv-stpn)! - Expose and document the DiaTextReveal animation stylesheet so applications can load the keyframes required for visible text and repeated line changes.
+
 ## 0.0.5
 
 ### Patch Changes
