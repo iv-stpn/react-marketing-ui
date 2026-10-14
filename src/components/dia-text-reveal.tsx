@@ -1,9 +1,10 @@
 'use client';
 
-import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import type { AnimationEvent, ComponentPropsWithoutRef } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { useMediaQuery } from '../lib/use-media-query.js';
 import { cn } from '../lib/utils.js';
 
 import { ExitingLine, HeightClipper, WidthReservation } from './dia-text-reveal.lines.js';
@@ -69,7 +70,9 @@ export function DiaTextReveal({
 }: DiaTextRevealProps) {
   const texts = Array.isArray(text) ? text : [text];
   const isMulti = texts.length > 1;
-  const prefersReducedMotion = useReducedMotion();
+  // Keep the first client render consistent with SSR, then update the styles
+  // after hydration so reduced-motion readers see the fully revealed text.
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const exitSpan = exitDuration ?? duration * COVERAGE_SPAN;
   const lead = Math.max(0, exitLead ?? duration * EXIT_LEAD_RATIO);
   const exitTotal = lead + exitSpan;
@@ -176,7 +179,11 @@ export function DiaTextReveal({
 
   // biome-ignore lint/plugin: pauses/re-arms a pending timer on live viewport presence.
   useEffect(() => {
-    if (!repeat || prefersReducedMotion) return;
+    if (!repeat || prefersReducedMotion) {
+      clearTimeout(timerRef.current);
+      timerRef.current = undefined;
+      return;
+    }
     if (!isLiveInView) {
       if (timerRef.current === undefined) return;
       clearTimeout(timerRef.current);
