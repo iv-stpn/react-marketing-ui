@@ -10,6 +10,18 @@ Ported from the [offkeep](https://offkeep.com) marketing site into a standalone 
 bun add react-marketing-ui
 ```
 
+### DiaTextReveal styles
+
+Import the animation stylesheet once in your app's global stylesheet:
+
+```css
+@import "react-marketing-ui/dia-text-reveal.css";
+```
+
+The package build emits CSS separately from JavaScript. These keyframes are
+required for the text reveal and for advancing repeated lines; scanning the
+package with Tailwind's `@source` does not include them.
+
 ## Components
 
 - **SparklesText** — text wrapped in continuously respawning sparkle stars
